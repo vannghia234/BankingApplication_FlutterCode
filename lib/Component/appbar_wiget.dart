@@ -1,5 +1,6 @@
 import 'package:banking_application/Pages/profile_page.dart';
 import 'package:flutter/material.dart';
+
 import '../app_style/app_color/App_color.dart';
 
 class AppbarWiget extends StatefulWidget {
@@ -20,8 +21,12 @@ class _AppbarWigetState extends State<AppbarWiget> {
           Row(
             children: [
               GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(PageRouteBuilder( opaque: false ,pageBuilder: (context, animation, secondaryAnimation) => Profile_page(),));
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        Profile_page(),
+                  ));
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
@@ -36,32 +41,32 @@ class _AppbarWigetState extends State<AppbarWiget> {
               const SizedBox(
                 width: 5,
               ),
-              Text('NGHIA NGUYEN'.toUpperCase(),
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      )),
+              Text('nguyễn văn nghĩa'.toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  )),
             ],
           ),
           Row(
             children: [
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.qr_code_scanner,
                     color: App_color.primaryColor,
                     size: 24,
                   )),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.forum_outlined,
                     color: App_color.primaryColor,
                     size: 24,
                   )),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.notifications,
                     color: App_color.primaryColor,
                     size: 24,

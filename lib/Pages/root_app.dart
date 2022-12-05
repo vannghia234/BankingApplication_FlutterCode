@@ -1,7 +1,6 @@
 import 'package:banking_application/Pages/history_page.dart';
 import 'package:banking_application/Pages/lifeStyle_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
@@ -22,7 +21,7 @@ class _Root_appState extends State<Root_app> {
         context: context,
         isScrollControlled: false,
         elevation: 10,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
         builder: (context) {
           return DraggableScrollableSheet(
@@ -37,33 +36,41 @@ class _Root_appState extends State<Root_app> {
                   child: Column(
                     children: [
                       const SizedBox(
-                          width: 50,
-                          child: Divider(thickness: 4),
+                        width: 50,
+                        child: Divider(thickness: 4),
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Spacer(),
-                          const Text('Dịch vụ khác', style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16
-                          ),),
+                          const Text(
+                            'Dịch vụ khác',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
                           const Spacer(),
                         ],
-
                       ),
-                      const SizedBox(height: 30,),
+                      const SizedBox(
+                        height: 30,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           build_dichVu(Icons.flip, 'Quét mã'),
                           build_dichVu(Icons.qr_code_outlined, 'Mã của tôi'),
-                          build_dichVu(Icons.phone_iphone_outlined, 'Nạp tiền điện thoại'),
+                          build_dichVu(Icons.phone_iphone_outlined,
+                              'Nạp tiền điện thoại'),
                           build_dichVu(Icons.person_add, 'mời bạn bè'),
                         ],
                       ),
-                      const SizedBox(height: 30,),
+                      const SizedBox(
+                        height: 30,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,8 +78,6 @@ class _Root_appState extends State<Root_app> {
                           build_dichVu(Icons.waving_hand_outlined, 'Nhắc nợ'),
                         ],
                       )
-
-
                     ],
                   ),
                 ),
@@ -84,18 +89,25 @@ class _Root_appState extends State<Root_app> {
 
   Column build_dichVu(IconData icon, String s) {
     return Column(
-                        children: [
-                          Icon(icon, color: Colors.blueAccent, size: 28,),
-                          Text(s,style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, height: 1.9,),)
-                        ],
-                      );
+      children: [
+        Icon(
+          icon,
+          color: Colors.blueAccent,
+          size: 28,
+        ),
+        Text(
+          s,
+          style:  const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 13,
+            height: 1.9,
+          ),
+        )
+      ],
+    );
   }
 
   Widget build(BuildContext context) {
-    var size = MediaQuery
-        .of(context)
-        .size;
-    String ID = "";
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: getBody(),

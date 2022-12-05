@@ -11,10 +11,11 @@ class Profile_page extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        actions:  [
+        actions: [
           GestureDetector(
-            onTap: (){
-              Navigator.pop(context);},
+            onTap: () {
+              Navigator.pop(context);
+            },
             child: const Padding(
               padding: EdgeInsets.only(right: 15),
               child: Icon(
@@ -70,33 +71,48 @@ class Profile_page extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _build_iconColumn(
-                          Icons.info_outline, 'Thông tin cá nhân', size),
-                      _build_iconColumn(
-                          Icons.edit, 'Thay đổi thông tin', size),
-                      _build_iconColumn(
-                          Icons.credit_card, 'Quản lý thẻ', size),
-                    ],
+                  IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _build_iconColumn(
+                            Icons.info_outline, 'Thông tin cá nhân', size),
+                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
+                        _build_iconColumn(Icons.edit, 'Thay đổi thông tin', size),
+                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
+                        _build_iconColumn(Icons.credit_card, 'Quản lý thẻ', size),
+                      ],
+                    ),
                   ),
-                  const Divider(thickness: 0.5, color: Colors.white70,indent: 10, endIndent: 10, ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _build_iconColumn(
-                          Icons.lock_outline, 'Thông báo & bảo mật', size),
-                      _build_iconColumn(
-                          Icons.language, 'Thay đổi thông tin', size),
-                      _build_iconColumn(
-                          Icons.power_settings_new, 'Đăng xuất', size),
-                    ],
+                  const Divider(
+                    thickness: 0.5,
+                    color: Colors.white24,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _build_iconColumn(
+                            Icons.lock_outline, 'Thông báo & bảo mật', size),
+                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
+
+                        _build_iconColumn(
+                            Icons.language, 'Thay đổi thông tin', size),
+                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
+
+                        _build_iconColumn(
+                            Icons.power_settings_new, 'Đăng xuất', size),
+                      ],
+                    ),
                   )
                 ],
               ),
             ),
-            const SizedBox(height: 45,),
+            const SizedBox(
+              height: 45,
+            ),
             const Text(
               'Trợ giúp',
               style: TextStyle(
@@ -105,7 +121,9 @@ class Profile_page extends StatelessWidget {
                 fontSize: 22,
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
               margin: EdgeInsets.only(top: 15),
               width: size.width,
@@ -124,18 +142,23 @@ class Profile_page extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _build_iconColumn(
-                          Icons.location_on, 'Địa điểm', size),
-                      _build_iconColumn(
-                          Icons.mark_unread_chat_alt_outlined, 'Phản hồi', size),
-                      _build_iconColumn(
-                          Icons.phone, 'Liên hệ', size),
-                      _build_iconColumn(
-                          Icons.live_help, 'Hỏi đáp', size)
-                    ],
+                  IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _build_iconColumn(Icons.location_on, 'Địa điểm', size),
+                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
+
+                        _build_iconColumn(Icons.mark_unread_chat_alt_outlined,
+                            'Phản hồi', size),
+                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
+
+                        _build_iconColumn(Icons.phone, 'Liên hệ', size),
+                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
+
+                        _build_iconColumn(Icons.live_help, 'Hỏi đáp', size)
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -144,25 +167,33 @@ class Profile_page extends StatelessWidget {
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                text: 'Điều kiện & Điều khoản',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 14, decoration: TextDecoration.underline, decorationThickness: 2,color: Colors.black.withOpacity(0.8),
-                ),
-                children: const [
-                  TextSpan(text: ' | ',style: TextStyle(decoration: TextDecoration.none, fontSize: 14)),
-                  TextSpan(text: ' Chính sách bảo vệ dữ liệu & Quyền riêng tư',
+                  text: 'Điều kiện & Điều khoản',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    decoration: TextDecoration.underline,
+                    decorationThickness: 2,
+                    color: Colors.black.withOpacity(0.8),
                   ),
-
-                ]
-              ),
+                  children: const [
+                    TextSpan(
+                        text: ' | ',
+                        style: TextStyle(
+                            decoration: TextDecoration.none, fontSize: 14)),
+                    TextSpan(
+                      text: ' Chính sách bảo vệ dữ liệu & Quyền riêng tư',
+                    ),
+                  ]),
             )
           ],
         ),
       ),
     ));
   }
+
   SizedBox _build_iconColumn(IconData icon, String s, Size size) {
     return SizedBox(
+      width: (size.width - 20)/3 -50,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

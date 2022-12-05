@@ -26,7 +26,7 @@ class _LifeStyle_pageState extends State<LifeStyle_page> {
               size: size,
               title: 'Báo cáo phân tích chi tiêu',
               subtitle: 'Trả lời câu hỏi: tôi đã tiêu tiền vào những khoản gì?',
-              icon: Icon(
+              icon: const Icon(
                 Icons.pie_chart,
                 color: App_color.primaryColor,
                 size: 40,
@@ -36,7 +36,7 @@ class _LifeStyle_pageState extends State<LifeStyle_page> {
               size: size,
               title: 'Báo cáo thu chi hàng tháng',
               subtitle: 'Trở thành chuyên gia tài chính cá nhân của riêng mình',
-              icon: Icon(
+              icon: const Icon(
                 Icons.equalizer,
                 color: App_color.primaryColor,
                 size: 40,
@@ -46,7 +46,7 @@ class _LifeStyle_pageState extends State<LifeStyle_page> {
               size: size,
               title: 'Đầu Tư Chứng Chỉ Quỹ',
               subtitle: 'Thẻ tín dụng NQPay',
-              icon: Icon(
+              icon: const Icon(
                 Icons.attach_money_rounded,
                 color: App_color.primaryColor,
                 size: 40,
@@ -57,7 +57,7 @@ class _LifeStyle_pageState extends State<LifeStyle_page> {
               size: size,
               title: 'Bảo hiểm du lịch',
               subtitle: 'Du lịch toàn cầu chỉ từ 23.000 VND/ ngày',
-              icon: Icon(
+              icon: const Icon(
                 Icons.flight_takeoff,
                 color: App_color.primaryColor,
                 size: 40,
@@ -67,7 +67,7 @@ class _LifeStyle_pageState extends State<LifeStyle_page> {
               size: size,
               title: 'Khoản vay Ngân Hàng bản Việt',
               subtitle: 'Khoản vay cho nhà, xe và kinh doanh',
-              icon: Icon(
+              icon: const Icon(
                 Icons.handshake,
                 color: App_color.primaryColor,
                 size: 40,

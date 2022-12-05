@@ -43,13 +43,14 @@ class _SliderBannerState extends State<SliderBanner> {
               );
             },
             options: CarouselOptions(
+              autoPlayAnimationDuration: Duration(milliseconds: 1000),
                 onPageChanged: (index, reason) {
                   setState(() {
                     selected_index = index;
                   });
                 },
                 autoPlay: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
+                enlargeStrategy: CenterPageEnlargeStrategy.scale,
                 viewportFraction: 0.90,
                 initialPage: selected_index,
                 enableInfiniteScroll: true,

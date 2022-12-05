@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:banking_application/Component/Build_container.dart';
 import 'package:banking_application/Component/appbar_wiget.dart';
 import 'package:banking_application/Component/slideBanner.dart';
@@ -59,8 +57,7 @@ class _Home_pageState extends State<Home_page> {
                         Row(
                           children: [
                             const Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 8),
                               child: Icon(
                                 Icons.notifications_active,
                                 color: Colors.white,
@@ -116,7 +113,7 @@ class _Home_pageState extends State<Home_page> {
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: Container(
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       height: 40,
@@ -127,6 +124,7 @@ class _Home_pageState extends State<Home_page> {
                               topRight: Radius.circular(15),
                               topLeft: Radius.circular(15))),
                       child: Stack(
+                        clipBehavior: Clip.none,
                         children: [
                           Positioned(
                             top: -20,
@@ -138,9 +136,8 @@ class _Home_pageState extends State<Home_page> {
                               height: 30,
                               width: 60,
                             ),
-
                           ),
-                          Positioned(
+                          const Positioned(
                               top: 10,
                               right: 0,
                               left: 70,
@@ -156,14 +153,13 @@ class _Home_pageState extends State<Home_page> {
                             right: 10,
                             top: 0,
                             bottom: 0,
-                            child: const Icon(
+                            child: Icon(
                               Icons.arrow_forward_ios_rounded,
                               color: App_color.primaryColor,
                               size: 14,
                             ),
                           )
                         ],
-                        clipBehavior: Clip.none,
                       ),
                     ),
                   ),
@@ -203,7 +199,7 @@ class _Home_pageState extends State<Home_page> {
                             EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
-                            color: Color(0xff2874B2)),
+                            color: const Color(0xff2874B2)),
                         child: const Text(
                           'Đăng Ký Ngay',
                           style: TextStyle(
@@ -218,7 +214,7 @@ class _Home_pageState extends State<Home_page> {
                   Build_container(
                     size: size,
                     title: 'Social Banking',
-                    row_title: text_row_title(Color(0xff2874B2), 'BETA'),
+                    row_title: text_row_title(const Color(0xff2874B2), 'BETA'),
                     nav_title: Center(
                       child: Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -239,7 +235,7 @@ class _Home_pageState extends State<Home_page> {
 
   Container text_row_title(Color color, String content) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
       decoration:
           BoxDecoration(color: color, borderRadius: BorderRadius.circular(12)),
       child: Text(
