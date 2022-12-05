@@ -1,3 +1,4 @@
+import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:flutter/material.dart';
 import 'Pages/root_app.dart';
 
@@ -11,7 +12,7 @@ void main() {
       ),
         primaryColor: const Color(0xFF5B3D86),
         fontFamily: "opensan",
-        appBarTheme: const AppBarTheme(backgroundColor:  Color(0xFF0A50B63))),
+        appBarTheme: const AppBarTheme(backgroundColor:  App_color.primaryColor)),
     home: const Root_app(),
   ));
 }

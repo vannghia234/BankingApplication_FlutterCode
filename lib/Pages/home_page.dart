@@ -58,9 +58,9 @@ class _Home_pageState extends State<Home_page> {
                       children: [
                         Row(
                           children: [
-                            Padding(
+                            const Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
+                                  EdgeInsets.symmetric(horizontal: 8),
                               child: Icon(
                                 Icons.notifications_active,
                                 color: Colors.white,
@@ -76,8 +76,8 @@ class _Home_pageState extends State<Home_page> {
                             )
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
                           child: Icon(
                             Icons.arrow_forward_ios_sharp,
                             color: Colors.white,
@@ -121,7 +121,7 @@ class _Home_pageState extends State<Home_page> {
                       ),
                       height: 40,
                       width: double.infinity - 15,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Color(0xffE4DFEA),
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(15),
@@ -129,15 +129,16 @@ class _Home_pageState extends State<Home_page> {
                       child: Stack(
                         children: [
                           Positioned(
+                            top: -20,
+                            left: 0,
+                            bottom: -5,
                             child: Image.asset(
                               'assets/images/paypal.png',
                               fit: BoxFit.contain,
                               height: 30,
                               width: 60,
                             ),
-                            top: -20,
-                            left: 0,
-                            bottom: -5,
+
                           ),
                           Positioned(
                               top: 10,
@@ -203,7 +204,7 @@ class _Home_pageState extends State<Home_page> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
                             color: Color(0xff2874B2)),
-                        child: Text(
+                        child: const Text(
                           'Đăng Ký Ngay',
                           style: TextStyle(
                               color: Colors.white,
@@ -243,7 +244,7 @@ class _Home_pageState extends State<Home_page> {
           BoxDecoration(color: color, borderRadius: BorderRadius.circular(12)),
       child: Text(
         content,
-        style: TextStyle(
+        style: const TextStyle(
             color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
       ),
     );
@@ -263,7 +264,7 @@ class _Home_pageState extends State<Home_page> {
     return Center(
       child: Text(
         sodu,
-        style: TextStyle(
+        style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
             color: App_color.primaryColor),

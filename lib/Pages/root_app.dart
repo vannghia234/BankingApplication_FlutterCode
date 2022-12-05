@@ -1,6 +1,5 @@
 import 'package:banking_application/Pages/history_page.dart';
 import 'package:banking_application/Pages/lifeStyle_page.dart';
-import 'package:banking_application/Pages/others_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +17,84 @@ class _Root_appState extends State<Root_app> {
   @override
   int current_index = 0;
 
+  void _showModelBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: false,
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+        builder: (context) {
+          return DraggableScrollableSheet(
+            initialChildSize: 0.6,
+            maxChildSize: 0.6,
+            minChildSize: 0.5,
+            expand: false,
+            builder: (context, scrollController) {
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                          width: 50,
+                          child: Divider(thickness: 4),
+                      ),
+                      const SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Spacer(),
+                          const Text('Dịch vụ khác', style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16
+                          ),),
+                          const Spacer(),
+                        ],
+
+                      ),
+                      const SizedBox(height: 30,),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          build_dichVu(Icons.flip, 'Quét mã'),
+                          build_dichVu(Icons.qr_code_outlined, 'Mã của tôi'),
+                          build_dichVu(Icons.phone_iphone_outlined, 'Nạp tiền điện thoại'),
+                          build_dichVu(Icons.person_add, 'mời bạn bè'),
+                        ],
+                      ),
+                      const SizedBox(height: 30,),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          build_dichVu(Icons.waving_hand_outlined, 'Nhắc nợ'),
+                        ],
+                      )
+
+
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        });
+  }
+
+  Column build_dichVu(IconData icon, String s) {
+    return Column(
+                        children: [
+                          Icon(icon, color: Colors.blueAccent, size: 28,),
+                          Text(s,style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13, height: 1.9,),)
+                        ],
+                      );
+  }
+
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    var size = MediaQuery
+        .of(context)
+        .size;
     String ID = "";
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -30,8 +105,8 @@ class _Root_appState extends State<Root_app> {
         backgroundColor: App_color.primaryColor,
         child: Image.asset(
           'assets/images/transfer1.png',
-          width: 18,
-          height: 18,
+          width: 16,
+          height: 16,
           fit: BoxFit.cover,
         ),
         onPressed: () {},
@@ -47,7 +122,6 @@ class _Root_appState extends State<Root_app> {
         const Home_page(),
         const LifeStyle_page(),
         const History_page(),
-        const Others_page(),
       ],
     );
   }
@@ -158,25 +232,19 @@ class _Root_appState extends State<Root_app> {
               InkWell(
                 borderRadius: BorderRadius.circular(15),
                 onTap: () {
-                  setState(() {
-                    current_index = 3;
-                  });
+                  _showModelBottomSheet(context);
                 },
                 child: Column(
                   children: [
                     Icon(
                       Icons.menu,
-                      color: (current_index == 3)
-                          ? Color(0xFF5B3D86)
-                          : Colors.grey.withOpacity(0.7),
+                      color: Colors.grey.withOpacity(0.7),
                       size: 30,
                     ),
                     Text('Others',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: (current_index == 3)
-                                ? App_color.primaryColor
-                                : Colors.grey.withOpacity(0.7)))
+                            color: Colors.grey.withOpacity(0.7)))
                   ],
                 ),
               ),

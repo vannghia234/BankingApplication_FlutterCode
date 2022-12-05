@@ -1,3 +1,4 @@
+import 'package:banking_application/Pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import '../app_style/app_color/App_color.dart';
 
@@ -18,13 +19,18 @@ class _AppbarWigetState extends State<AppbarWiget> {
         children: [
           Row(
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Image.asset(
-                  'assets/images/useravatar.png',
-                  height: 36,
-                  width: 36,
-                  fit: BoxFit.cover,
+              GestureDetector(
+                onTap: (){
+                  Navigator.of(context).push(PageRouteBuilder( opaque: false ,pageBuilder: (context, animation, secondaryAnimation) => Profile_page(),));
+                },
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Image.asset(
+                    'assets/images/useravatar.png',
+                    height: 36,
+                    width: 36,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(
