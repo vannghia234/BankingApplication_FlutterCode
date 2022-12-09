@@ -1,8 +1,9 @@
+import 'package:banking_application/Pages/transfer_page.dart';
 import 'package:banking_application/Pages/history_page.dart';
 import 'package:banking_application/Pages/lifeStyle_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:flutter/material.dart';
-
+import 'package:page_transition/page_transition.dart';
 import 'home_page.dart';
 
 class Root_app extends StatefulWidget {
@@ -20,9 +21,9 @@ class _Root_appState extends State<Root_app> {
     showModalBottomSheet(
         context: context,
         isScrollControlled: false,
-        elevation: 10,
+        elevation: 15,
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
         builder: (context) {
           return DraggableScrollableSheet(
             initialChildSize: 0.6,
@@ -37,21 +38,21 @@ class _Root_appState extends State<Root_app> {
                     children: [
                       const SizedBox(
                         width: 50,
-                        child: Divider(thickness: 4),
+                        child: Divider(thickness: 4, color: Colors.grey,),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Spacer(),
-                          const Text(
+                        children: const [
+                          Spacer(),
+                          Text(
                             'Dịch vụ khác',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
-                          const Spacer(),
+                          Spacer(),
                         ],
                       ),
                       const SizedBox(
@@ -121,7 +122,11 @@ class _Root_appState extends State<Root_app> {
           height: 16,
           fit: BoxFit.cover,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, PageTransition(child: const Transfer_Page(), type: PageTransitionType.fade));
+
+
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
@@ -130,10 +135,10 @@ class _Root_appState extends State<Root_app> {
   Widget getBody() {
     return IndexedStack(
       index: current_index,
-      children: [
-        const Home_page(),
-        const LifeStyle_page(),
-        const History_page(),
+      children: const [
+        Home_page(),
+        LifeStyle_page(),
+        History_page(),
       ],
     );
   }
@@ -206,14 +211,14 @@ class _Root_appState extends State<Root_app> {
                 ),
               ),
               Container(
+                margin: const EdgeInsets.only(
+                  top: 10,
+                ),
                 child: Text(
                   'Transfer',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.grey.withOpacity(0.7)),
-                ),
-                margin: EdgeInsets.only(
-                  top: 10,
                 ),
               ),
               InkWell(

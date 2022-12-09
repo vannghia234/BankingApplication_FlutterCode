@@ -44,9 +44,10 @@ class BuildContainer_history extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style:  TextStyle(
+                Text(title, style:  const TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 18
                 ),),
+                const SizedBox(height: 6,),
                 Text(subtitle, style:  TextStyle(fontSize: 13, color: Colors.black.withOpacity(0.5)
                 ),),
                 const SizedBox(height: 8,),
@@ -60,7 +61,7 @@ class BuildContainer_history extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(tienTru, style:  TextStyle(
+                  Text(tienTru, style:  const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 18
                   ),),
                   Text(soDu, style:  TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.5)

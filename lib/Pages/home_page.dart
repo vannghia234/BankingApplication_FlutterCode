@@ -33,8 +33,6 @@ class _Home_pageState extends State<Home_page> {
             const AppbarWiget(),
             //slider banner
             SizedBox(
-                height: (size.height / 4) + 60,
-                width: (size.width),
                 child: SliderBanner(
                   size: size,
                 )),

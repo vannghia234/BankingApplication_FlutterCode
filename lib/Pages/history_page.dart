@@ -14,6 +14,7 @@ class _History_pageState extends State<History_page> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -23,7 +24,7 @@ class _History_pageState extends State<History_page> {
                 padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
                 width: double.infinity,
                 decoration: BoxDecoration(color: Colors.grey.withOpacity(0.15)),
-                child: Text(
+                child: const Text(
                   '04/12/2022',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -77,9 +78,9 @@ class _History_pageState extends State<History_page> {
       color: Color(0xffD2E4F1),
     ),
     child: Row(
-      children: [
+      children: const [
         Padding(
-          padding: const EdgeInsets.only(right: 5),
+          padding: EdgeInsets.only(right: 5),
           child: Icon(
             Icons.account_balance,
             size: 16,
@@ -98,15 +99,15 @@ class _History_pageState extends State<History_page> {
     ),
   );
   final container_muaSam = Container(
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(18),
-      color: Color(0xFFFCD9E9),
+      color: const Color(0xFFFCD9E9),
     ),
     child: Row(
-      children: [
+      children: const [
         Padding(
-          padding: const EdgeInsets.only(right: 5),
+          padding: EdgeInsets.only(right: 5),
           child: Icon(
             Icons.shopping_basket_rounded,
             size: 16,

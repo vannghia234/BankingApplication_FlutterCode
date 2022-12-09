@@ -1,40 +1,48 @@
+import 'package:banking_application/Pages/change_info_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Profile_page extends StatelessWidget {
-  Profile_page({Key? key}) : super(key: key);
+  const Profile_page({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size;
     size = MediaQuery.of(context).size;
-
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: Icon(
-                Icons.close,
-                color: App_color.primaryColor,
-                size: 30,
-              ),
-            ),
-          )
-        ],
-        backgroundColor: Colors.transparent,
-        automaticallyImplyLeading: false,
-      ),
-      backgroundColor: Colors.white.withOpacity(0.95),
-      body: getBody(size),
+      appBar: getAppbar(context),
+      backgroundColor: Colors.white.withOpacity(0.94),
+      body: getBody(size, context),
     );
   }
 
-  Widget getBody(Size size) {
+  AppBar getAppbar(BuildContext context) {
+    return AppBar(
+      actions: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Padding(
+            padding: EdgeInsets.only(right: 15),
+            child: Icon(
+              Icons.close,
+              color: App_color.primaryColor,
+              size: 30,
+            ),
+          ),
+        )
+      ],
+      backgroundColor: Colors.transparent,
+      // backgroundColor: Colors.white.withOpacity(0.94),
+      elevation: 0,
+
+      automaticallyImplyLeading: false,
+    );
+  }
+
+  Widget getBody(Size size, BuildContext context) {
     return SafeArea(
         child: Center(
       child: Padding(
@@ -47,14 +55,14 @@ class Profile_page extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 color: App_color.primaryColor,
-                fontSize: 22,
+                fontSize: 20,
               ),
             ),
             const SizedBox(
               height: 20,
             ),
             Container(
-              margin: EdgeInsets.only(bottom: 30),
+              margin: const EdgeInsets.only(bottom: 30),
               width: size.width,
               height: size.height * 1 / 4 + 30,
               decoration: BoxDecoration(
@@ -77,10 +85,26 @@ class Profile_page extends StatelessWidget {
                       children: [
                         _build_iconColumn(
                             Icons.info_outline, 'Thông tin cá nhân', size),
-                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
-                        _build_iconColumn(Icons.edit, 'Thay đổi thông tin', size),
-                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
-                        _build_iconColumn(Icons.credit_card, 'Quản lý thẻ', size),
+                        const VerticalDivider(
+                          thickness: 0.5,
+                          color: Colors.white24,
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: const Change_Info_Page(),
+                                      type: PageTransitionType.fade));
+                            },
+                            child: _build_iconColumn(
+                                Icons.edit, 'Thay đổi thông tin', size)),
+                        const VerticalDivider(
+                          thickness: 0.5,
+                          color: Colors.white24,
+                        ),
+                        _build_iconColumn(
+                            Icons.credit_card, 'Quản lý thẻ', size),
                       ],
                     ),
                   ),
@@ -96,12 +120,16 @@ class Profile_page extends StatelessWidget {
                       children: [
                         _build_iconColumn(
                             Icons.lock_outline, 'Thông báo & bảo mật', size),
-                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
-
+                        const VerticalDivider(
+                          thickness: 0.5,
+                          color: Colors.white24,
+                        ),
                         _build_iconColumn(
                             Icons.language, 'Thay đổi thông tin', size),
-                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
-
+                        const VerticalDivider(
+                          thickness: 0.5,
+                          color: Colors.white24,
+                        ),
                         _build_iconColumn(
                             Icons.power_settings_new, 'Đăng xuất', size),
                       ],
@@ -118,20 +146,20 @@ class Profile_page extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 color: App_color.primaryColor,
-                fontSize: 22,
+                fontSize: 20,
               ),
             ),
             const SizedBox(
               height: 10,
             ),
             Container(
-              margin: EdgeInsets.only(top: 15),
+              margin: const EdgeInsets.only(top: 15),
               width: size.width,
               height: size.height * 1 / 7,
               decoration: BoxDecoration(
                   color: App_color.primaryColor,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         color: Colors.black26,
                         offset: Offset(3, 3),
@@ -147,15 +175,21 @@ class Profile_page extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _build_iconColumn(Icons.location_on, 'Địa điểm', size),
-                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
-
+                        const VerticalDivider(
+                          thickness: 0.5,
+                          color: Colors.white24,
+                        ),
                         _build_iconColumn(Icons.mark_unread_chat_alt_outlined,
                             'Phản hồi', size),
-                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
-
+                        const VerticalDivider(
+                          thickness: 0.5,
+                          color: Colors.white24,
+                        ),
                         _build_iconColumn(Icons.phone, 'Liên hệ', size),
-                        const VerticalDivider(thickness: 0.5 ,color: Colors.white24,),
-
+                        const VerticalDivider(
+                          thickness: 0.5,
+                          color: Colors.white24,
+                        ),
                         _build_iconColumn(Icons.live_help, 'Hỏi đáp', size)
                       ],
                     ),
@@ -193,7 +227,7 @@ class Profile_page extends StatelessWidget {
 
   SizedBox _build_iconColumn(IconData icon, String s, Size size) {
     return SizedBox(
-      width: (size.width - 20)/3 -50,
+      width: (size.width - 20) / 3 - 50,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
