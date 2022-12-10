@@ -14,6 +14,12 @@ class App_Style {
       fontSize: size,
     );
   }
+  static TextStyle primaryStyle(){
+    return TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black.withOpacity(0.4));
+  }
 
   static TextStyle boldStyle(double size){
     return TextStyle(

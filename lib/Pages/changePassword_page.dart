@@ -1,6 +1,8 @@
+import 'package:banking_application/Pages/ConfirmTransfer_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ChangePassword_page extends StatefulWidget {
   const ChangePassword_page({Key? key}) : super(key: key);
@@ -12,16 +14,20 @@ class ChangePassword_page extends StatefulWidget {
 class _ChangePassword_pageState extends State<ChangePassword_page> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
+        centerTitle: true,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
-            child: const Icon(Icons.arrow_back_ios_new, color: Colors.black)),
+            child: const Icon(
+              Icons.arrow_back_ios_new, color: Colors.black, size: 20,)),
         title: Text('Đổi mật khẩu', style: App_Style.boldStyle(16)),
         backgroundColor: Colors.white,
       ),
@@ -59,26 +65,7 @@ class _ChangePassword_pageState extends State<ChangePassword_page> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: MaterialButton(
-                onPressed: () {},
-                elevation: 5,
-                hoverElevation: 5,
-                splashColor: App_color.primaryColor,
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                highlightColor: App_color.primaryColor,
-                minWidth: double.infinity,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7)),
-                color: Colors.grey,
-                child: Text(
-                  'đồng ý thay đổi'.toUpperCase(),
-                  style: App_Style.boldStyle(14)
-                      .copyWith(color: Colors.white, letterSpacing: 0.7),
-                ),
-              ),
-            )
+              MaterialButton_widget(txtBtn: 'Đồng ý thay đổi',)
           ],
         ),
       ),
@@ -111,6 +98,40 @@ class _ChangePassword_pageState extends State<ChangePassword_page> {
             textAlign: TextAlign.left,
           )
         ],
+      ),
+    );
+  }
+}
+
+class MaterialButton_widget extends StatelessWidget {
+  const MaterialButton_widget({
+    Key? key,
+    required this.txtBtn,
+     this.ontapp,
+  }) : super(key: key);
+  final String txtBtn;
+  final VoidCallback? ontapp;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: MaterialButton(
+        onPressed: ontapp,
+        elevation: 5,
+        hoverElevation: 5,
+        splashColor: App_color.primaryColor,
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        highlightColor: App_color.primaryColor,
+        minWidth: double.infinity,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6)),
+        color: Colors.grey,
+        child: Text(
+          txtBtn.toUpperCase(),
+          style: App_Style.boldStyle(14)
+              .copyWith(color: Colors.white, letterSpacing: 0.7),
+        ),
       ),
     );
   }

@@ -29,8 +29,8 @@ class _AppbarWigetState extends State<AppbarWiget> {
                   backgroundColor: Colors.white,
                   child: Image.asset(
                     'assets/images/useravatar.png',
-                    height: 36,
-                    width: 36,
+                    height: 40,
+                    width: 40,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -39,7 +39,7 @@ class _AppbarWigetState extends State<AppbarWiget> {
                 ),
                 Text('nguyễn văn nghĩa'.toUpperCase(),
                     style: const TextStyle(
-                      fontSize: 13,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                     )),
               ],

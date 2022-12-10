@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'Pages/root_app.dart';
 import 'package:device_preview/device_preview.dart';
 void main() {
-  // runApp(DevicePreview(
-  //   enabled: !kReleaseMode,
-  //   builder: (context) => MaterialApp(
-  //   debugShowCheckedModeBanner: false,
-    // useInheritedMediaQuery: true,
-    // locale: DevicePreview.locale(context),
-    // builder: DevicePreview.appBuilder,
-  runApp(MaterialApp(
+  runApp(DevicePreview(
+    enabled: !kReleaseMode,
+    builder: (context) => MaterialApp(
     debugShowCheckedModeBanner: false,
+    useInheritedMediaQuery: true,
+    locale: DevicePreview.locale(context),
+    builder: DevicePreview.appBuilder,
+  // runApp(MaterialApp(
+  //   debugShowCheckedModeBanner: false,
     theme: ThemeData(
         dividerTheme: const DividerThemeData(
           thickness: 0.5,
@@ -24,5 +24,5 @@ void main() {
         appBarTheme:
         const AppBarTheme(backgroundColor: App_color.primaryColor)),
     home: const Root_app(),
-  ),);
+  ),));
 }

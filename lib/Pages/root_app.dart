@@ -123,7 +123,7 @@ class _Root_appState extends State<Root_app> {
           fit: BoxFit.cover,
         ),
         onPressed: () {
-          Navigator.push(context, PageTransition(child: const Transfer_Page(), type: PageTransitionType.fade));
+          Navigator.push(context, PageTransition(child: const Transfer_Page(), type: PageTransitionType.leftToRightWithFade));
 
 
         },
