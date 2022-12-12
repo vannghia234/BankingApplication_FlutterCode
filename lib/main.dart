@@ -1,4 +1,6 @@
+import 'package:banking_application/Pages/LoginPage.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +21,16 @@ void main() {
           thickness: 0.5,
           color: Colors.white24,
         ),
-        primaryColor: const Color(0xFF5B3D86),
+        inputDecorationTheme: const InputDecorationTheme(
+          suffixIconColor: App_color.primaryColor,
+        ),
+        colorScheme: ThemeData().colorScheme.copyWith(
+          secondary: App_color.primaryColor
+        ),
+        primaryColor:  const Color(0xFF5B3D86),
         fontFamily: "OpenSans",
         appBarTheme:
         const AppBarTheme(backgroundColor: App_color.primaryColor)),
-    home: const Root_app(),
+    home: const LoginPage(),
   ),));
 }

@@ -1,3 +1,4 @@
+import 'package:banking_application/Pages/LoginPage.dart';
 import 'package:banking_application/Pages/change_info_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:flutter/material.dart';
@@ -130,8 +131,13 @@ class Profile_page extends StatelessWidget {
                           thickness: 0.5,
                           color: Colors.white24,
                         ),
-                        _build_iconColumn(
-                            Icons.power_settings_new, 'Đăng xuất', size),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(context, PageTransition(child: const LoginPage(), type: PageTransitionType.topToBottom ));
+                          },
+                          child: _build_iconColumn(
+                              Icons.power_settings_new, 'Đăng xuất', size),
+                        ),
                       ],
                     ),
                   )

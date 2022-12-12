@@ -4,6 +4,7 @@ import 'package:banking_application/Component/slideBanner.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
+import 'package:lottie/lottie.dart';
 
 class Home_page extends StatefulWidget {
   const Home_page({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _Home_pageState extends State<Home_page> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: getBody(),
     );
@@ -34,8 +36,8 @@ class _Home_pageState extends State<Home_page> {
             //slider banner
             SizedBox(
                 child: SliderBanner(
-                  size: size,
-                )),
+              size: size,
+            )),
             const SizedBox(
               height: 5,
             ),
@@ -54,13 +56,11 @@ class _Home_pageState extends State<Home_page> {
                       children: [
                         Row(
                           children: [
-                            const Padding(
+                             const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: Icon(
-                                Icons.notifications_active,
-                                color: Colors.white,
-                                size: 16,
-                              ),
+                              child: Icon(Icons.notifications_active,
+                              color: Colors.white,
+                              size: 16,),
                             ),
                             Text(
                               'Bạn có 2 việc cần xử lý.',
@@ -68,7 +68,7 @@ class _Home_pageState extends State<Home_page> {
                                   color: Colors.white.withOpacity(0.9),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12),
-                            )
+                            ),
                           ],
                         ),
                         const Padding(

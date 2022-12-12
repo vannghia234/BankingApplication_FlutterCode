@@ -1,9 +1,11 @@
+import 'package:banking_application/Component/ButtonWidget.dart';
 import 'package:banking_application/Pages/transfer_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../Component/FormInputSuffix_Widget.dart';
 import 'ConfirmTransfer_page.dart';
 
 class Detail_Transfer_page extends StatelessWidget {
@@ -131,10 +133,12 @@ class Detail_Transfer_page extends StatelessWidget {
           FormInputSuffix_Widget(
             size: size,
             lable: 'Số tiền',
+            iconSuffix: Icons.edit,
           ),
           FormInputSuffix_Widget(
             size: size,
             lable: 'Lời nhắn (Nếu có) ',
+            iconSuffix: Icons.edit,
           ),
           const SizedBox(
             height: 20,
@@ -145,32 +149,17 @@ class Detail_Transfer_page extends StatelessWidget {
                 'Gửi lời nhắn thú vị hơn với tiếng Việt có dấu và biểu tượng cảm xúc. Chỉ thành viên NQpay xem được tin nhắn đặc biệt này.',
           ),
           const Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                          child: const ConfirmTransfer_Page(),
-                          type: PageTransitionType.leftToRight));
-                },
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    backgroundColor: App_color.primaryColor),
-                child: Container(
-                    alignment: Alignment.center,
-                    width: size.width - 20,
-                    child: Text(
-                      'xem lại'.toUpperCase(),
-                      style: const TextStyle(fontSize: 16, color: Colors.white),
-                    ))),
+          ButtonWidget(
+            size: size,
+            text: 'Xem lại',
+            onTapp: () {
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: const ConfirmTransfer_Page(),
+                      type: PageTransitionType.leftToRight));
+            },
           )
-
           // MaterialButton_widget(
           //     txtBtn: 'Xem lại',
           //     ontapp: () {

@@ -3,6 +3,7 @@ import 'package:banking_application/app_style/app_styles/App_style.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../Component/FormInputSuffix_Widget.dart';
 import 'detail_Transfer_page.dart';
 
 class Transfer_Page extends StatelessWidget {
@@ -43,7 +44,7 @@ class Transfer_Page extends StatelessWidget {
                 child: Column(
 
                   children: [
-                    FormInputSuffix_Widget(size: size, lable: 'Tên ngân hàng', name: 'Agribank'),
+                    FormInputSuffix_Widget(size: size, lable: 'Tên ngân hàng', name: 'Agribank', iconSuffix: Icons.edit,),
                     buildContainer(size, 'Số tài khoản'),
                     buildContainer(size, 'Tên chủ tài khoản',
                         name: 'nguyen van nghia'),
@@ -118,54 +119,3 @@ class Transfer_Page extends StatelessWidget {
   }
 }
 
-class FormInputSuffix_Widget extends StatelessWidget {
-  const FormInputSuffix_Widget({
-    Key? key,
-    required this.size,
-    required this.lable,
-     this.name,
-  }) : super(key: key);
-
-  final Size size;
-  final String lable;
-  final String? name;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 18),
-      height: size.width * 0.17,
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black26.withOpacity(0.15),
-                blurRadius: 9,
-                offset: const Offset(0, 3))
-          ]),
-      child: Center(
-        child: TextFormField(
-          keyboardType: (lable.contains('Lời nhắn') ? TextInputType.text : TextInputType.number),
-          enabled: (name != null) ? false : true,
-          initialValue: name,
-          style: App_Style.openSanGoogle(16).copyWith(
-              fontWeight: FontWeight.bold,
-              color: Colors.black.withOpacity(0.7)),
-          textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.only(top: 5, bottom: 5),
-            suffixIcon: const Icon(
-              Icons.edit,
-            ),
-            labelStyle: const TextStyle(
-                color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15),
-            label: Text(
-              lable,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

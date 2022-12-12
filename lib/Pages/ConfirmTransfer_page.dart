@@ -1,3 +1,4 @@
+import 'package:banking_application/Component/ButtonWidget.dart';
 import 'package:banking_application/Pages/detail_Transfer_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
@@ -64,7 +65,7 @@ class ConfirmTransfer_Page extends StatelessWidget {
                 height: 5,
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
                 width: size.width - 20,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -79,24 +80,10 @@ class ConfirmTransfer_Page extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    backgroundColor: App_color.primaryColor),
-                child: Container(
-                    alignment: Alignment.center,
-                    width: size.width - 20,
-                    child: Text(
-                      'CHUYỂN TIỀN NGAY'.toUpperCase(),
-                      style: const TextStyle(fontSize: 16, color: Colors.white),
-                    ))),
+          ButtonWidget(
+            size: size,
+            text: 'chuyển tiền ngay',
+            onTapp: () {},
           )
         ],
       ),
@@ -279,9 +266,9 @@ class From_To_widget extends StatelessWidget {
                 Text(
                   name.toUpperCase(),
                   style: App_Style.primaryStyle().copyWith(
-                      letterSpacing: 0.3,
+                      letterSpacing: 0.15,
                       color: Colors.black.withOpacity(0.7),
-                      fontSize: 14),
+                      fontSize: 15),
                 ),
                 const SizedBox(
                   height: 2,
@@ -289,7 +276,7 @@ class From_To_widget extends StatelessWidget {
                 Text(
                   bankingName,
                   style: App_Style.primaryStyle().copyWith(
-                      color: Colors.black.withOpacity(0.4), fontSize: 14),
+                      color: Colors.black.withOpacity(0.4), fontSize: 15),
                 ),
                 const SizedBox(
                   height: 2,
@@ -299,7 +286,7 @@ class From_To_widget extends StatelessWidget {
                   style: App_Style.primaryStyle().copyWith(
                       color: Colors.black.withOpacity(0.25),
                       letterSpacing: 0.2,
-                      fontSize: 14),
+                      fontSize: 15),
                 )
               ],
             ))
