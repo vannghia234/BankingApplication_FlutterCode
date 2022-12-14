@@ -1,18 +1,22 @@
+import 'package:banking_application/API/api_services.dart';
 import 'package:banking_application/Component/ButtonWidget.dart';
-import 'package:banking_application/Pages/detail_Transfer_page.dart';
+import 'package:banking_application/anim/LoadAnimSuccessfullyPage.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
 import 'package:flutter/material.dart';
 
+import 'InputTransferPage.dart';
+
 class ConfirmTransfer_Page extends StatelessWidget {
   const ConfirmTransfer_Page({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: getAppbar(context),
-      body: getBody(size),
+      body: getBody(size, context),
     );
   }
 
@@ -39,7 +43,7 @@ class ConfirmTransfer_Page extends StatelessWidget {
     );
   }
 
-  getBody(Size size) {
+  getBody(Size size, BuildContext context) {
     return SafeArea(
       child: Column(
         children: [
@@ -54,7 +58,7 @@ class ConfirmTransfer_Page extends StatelessWidget {
                   loiNhan: 'Nguyen Van nghia chuyen tien tu Sacombank',
                 ),
               ),
-              const Padding(
+               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Reminder_widget(
                     icon: Icons.info_outline,
@@ -83,7 +87,18 @@ class ConfirmTransfer_Page extends StatelessWidget {
           ButtonWidget(
             size: size,
             text: 'chuyển tiền ngay',
-            onTapp: () {},
+            onTapp: () async {
+              final response = await ApiServices.intance.resultTransfer();
+              if (response.response?.responseCode == "00") {
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                      const LoadAnimSuccessfullyPage(title: 'chuyển tiền thành công', home: true,),
+                      opaque: false,
+                    ));
+              }
+            },
           )
         ],
       ),

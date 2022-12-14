@@ -1,11 +1,10 @@
 import 'package:banking_application/Component/ButtonWidget.dart';
 import 'package:banking_application/Component/FormInputSuffix_Widget.dart';
-import 'package:banking_application/Pages/VerifyOtpPage.dart';
+import 'package:banking_application/Pages/register_page/VerifyOtpPage.dart';
+import 'package:banking_application/Pages/transfer_page/InputTransferPage.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'detail_Transfer_page.dart';
-
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
 

@@ -34,6 +34,15 @@ class FormInputSuffix_Widget extends StatelessWidget {
           ]),
       child: Center(
         child: TextFormField(
+          validator: (value) {
+            if(value == null || value.isEmpty){
+              return 'vui lòng nhập số tài khoản';
+            }
+            return null;
+          },
+          onSaved: (newValue) {
+
+          },
           keyboardType: (lable.contains('Lời nhắn') ? TextInputType.text : TextInputType.number),
           enabled: (name != null) ? false : true,
           initialValue: name,

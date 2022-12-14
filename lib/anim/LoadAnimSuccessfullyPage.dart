@@ -1,10 +1,15 @@
 import 'dart:async';
 
 import 'package:banking_application/Pages/LoginPage.dart';
+import 'package:banking_application/Pages/home_page.dart';
+import 'package:banking_application/Pages/root_app.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 class LoadAnimSuccessfullyPage extends StatefulWidget {
-  const LoadAnimSuccessfullyPage({Key? key}) : super(key: key);
+  final String title;
+  final bool? home ;
+
+  const LoadAnimSuccessfullyPage({Key? key, required this.title,  this.home}) : super(key: key);
 
   @override
   State<LoadAnimSuccessfullyPage> createState() => _LoadAnimSuccessfullyPageState();
@@ -17,10 +22,10 @@ class _LoadAnimSuccessfullyPageState extends State<LoadAnimSuccessfullyPage> {
     // TODO: implement initState
     super.initState();
     Timer(const Duration(seconds: 3), () =>    setState(() {
-      text = 'Đăng ký thành công';
+      text = widget.title;
     }),);
     Timer(const Duration(seconds: 5), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage(),));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => (widget.home == null) ? const LoginPage() : const Root_app(),));
 
     });
   }

@@ -71,6 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  currency_text_input_formatter:
+    dependency: "direct dev"
+    description:
+      name: currency_text_input_formatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.8"
   curved_navigation_bar:
     dependency: "direct dev"
     description:
@@ -118,13 +125,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_format_money_vietnam:
-    dependency: "direct dev"
-    description:
-      name: flutter_format_money_vietnam
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -147,13 +147,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  font_awesome_flutter:
-    dependency: "direct dev"
-    description:
-      name: font_awesome_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "10.2.1"
   freezed_annotation:
     dependency: transitive
     description:
@@ -169,7 +162,7 @@ packages:
     source: hosted
     version: "3.0.1"
   http:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -238,6 +231,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  money_formatter:
+    dependency: "direct dev"
+    description:
+      name: money_formatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   nested:
     dependency: transitive
     description:

@@ -1,7 +1,7 @@
 import 'package:banking_application/Component/ButtonWidget.dart';
 import 'package:banking_application/Component/FormPassword.dart';
 import 'package:banking_application/anim/LoadingAnimationPage.dart';
-import 'package:banking_application/Pages/RegisterPage.dart';
+import 'package:banking_application/Pages/register_page/RegisterPage.dart';
 import 'package:banking_application/Pages/root_app.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';

@@ -1,9 +1,10 @@
 import 'package:banking_application/Component/ButtonWidget.dart';
 import 'package:banking_application/Pages/ConfirmAccountPassword_page.dart';
+import 'package:banking_application/models/ToBanking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../app_style/app_styles/App_style.dart';
+import '../../app_style/app_styles/App_style.dart';
 
 class MainRegisterPage extends StatelessWidget {
   const MainRegisterPage({Key? key}) : super(key: key);

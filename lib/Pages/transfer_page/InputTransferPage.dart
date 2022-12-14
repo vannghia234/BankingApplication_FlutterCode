@@ -1,23 +1,30 @@
 import 'package:banking_application/Component/ButtonWidget.dart';
-import 'package:banking_application/Pages/transfer_page.dart';
+import 'package:banking_application/Provider/TransactionProvider.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
+import 'package:banking_application/app_style/func/CheckValue.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
-
-import '../Component/FormInputSuffix_Widget.dart';
-import 'ConfirmTransfer_page.dart';
+import 'package:provider/provider.dart';
+import '../../Component/FormInputSuffix_Widget.dart';
+import '../../models/ToBanking.dart';
+import 'DetailTransferPage.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 
 class Detail_Transfer_page extends StatelessWidget {
-  const Detail_Transfer_page({Key? key}) : super(key: key);
-
+  const Detail_Transfer_page({Key? key, this.InfoBanking}) : super(key: key);
+  final ToBanking? InfoBanking;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final _keyTransfer = GlobalKey<FormState>();
+    String soTien = "";
+    String? loiNhan = "";
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: getAppbar(context),
-      body: getBody(size, context),
+      body: getBody(size, context, _keyTransfer, soTien, loiNhan),
     );
   }
 
@@ -44,7 +51,7 @@ class Detail_Transfer_page extends StatelessWidget {
     );
   }
 
-  getBody(Size size, BuildContext context) {
+  getBody(Size size, BuildContext context, GlobalKey<FormState> keyTransfer, String soTien, String? loiNhan) {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -83,7 +90,6 @@ class Detail_Transfer_page extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const Expanded(child: HuChiTieu_Container())
                       ],
                     ),
                   ),
@@ -96,14 +102,14 @@ class Detail_Transfer_page extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        const ToAccount_Widget(
-                            AccountName: 'Nguyễn Hoàng Phúc'),
+                         ToAccount_Widget(
+                            AccountName: InfoBanking?.tenTaiKhoan ),
                         Padding(
                           padding: const EdgeInsets.only(left: 40),
                           child: Row(
                             children: [
                               Text(
-                                'Agribank',
+                                InfoBanking?.tenNganHang ?? "",
                                 style: App_Style.primaryStyle().copyWith(
                                     color: Colors.black.withOpacity(0.7),
                                     fontSize: 14),
@@ -112,7 +118,7 @@ class Detail_Transfer_page extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                '7200025325762',
+                                InfoBanking?.soTaiKhoan ?? "",
                                 style: App_Style.primaryStyle().copyWith(
                                     color: Colors.black.withOpacity(0.4),
                                     fontSize: 14),
@@ -130,15 +136,108 @@ class Detail_Transfer_page extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          FormInputSuffix_Widget(
-            size: size,
-            lable: 'Số tiền',
-            iconSuffix: Icons.edit,
+          Form(
+            key: keyTransfer,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 18),
+                  height: size.width * 0.17,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black26.withOpacity(0.15),
+                            blurRadius: 9,
+                            offset: const Offset(0, 3))
+                      ]),
+                  child: Center(
+                    child: TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        CurrencyTextInputFormatter(
+                          name: '',
+                          decimalDigits: 0
+                        )
+                      ],
+                      validator: (value) {
+                        double? money  = double.tryParse(value!);
+                        if(money == 0){
+                          return 'số tiền cần chuyển phải lớn hơn 0';
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) {
+                        soTien = CurrencyTextInputFormatter().format(newValue!);
+                      },
+                      initialValue: '0',
+                      keyboardType: TextInputType.number,
+                      autofocus: true,
+                      style: App_Style.openSanGoogle(18).copyWith(
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 3,
+                          color: Colors.black.withOpacity(0.7)),
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: const InputDecoration(
+
+                        contentPadding: EdgeInsets.only(top: 5, bottom: 5),
+                        suffixIcon:  Icon(
+                          Icons.edit,
+                        ),
+                        labelStyle: TextStyle(
+                            color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 16,letterSpacing: 0),
+                        label: Text(
+                          'Số tiền',
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-          FormInputSuffix_Widget(
-            size: size,
-            lable: 'Lời nhắn (Nếu có) ',
-            iconSuffix: Icons.edit,
+          Container(
+            margin: const EdgeInsets.only(top: 18),
+            height: size.width * 0.17,
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black26.withOpacity(0.15),
+                      blurRadius: 9,
+                      offset: const Offset(0, 3))
+                ]),
+            child: Center(
+              child: TextFormField(
+                onSaved: (newValue) {
+                  // loiNhan = newValue;
+
+                },
+                keyboardType: TextInputType.text,
+                style: App_Style.openSanGoogle(18).copyWith(
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0,
+                    color: Colors.black.withOpacity(0.7)),
+                textAlignVertical: TextAlignVertical.center,
+                maxLength: 150,
+                decoration: const InputDecoration(
+                  counterText: "",
+                  contentPadding: EdgeInsets.only(top: 5, bottom: 5),
+                  suffixIcon:  Icon(
+                    Icons.edit,
+                  ),
+                  labelStyle: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 16,letterSpacing: 0),
+                  label: Text(
+                    'Lời nhắn (Nếu có)',
+                  ),
+                ),
+              ),
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -153,11 +252,15 @@ class Detail_Transfer_page extends StatelessWidget {
             size: size,
             text: 'Xem lại',
             onTapp: () {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: const ConfirmTransfer_Page(),
-                      type: PageTransitionType.leftToRight));
+              if(keyTransfer.currentState?.validate() == true){
+                keyTransfer.currentState?.save();
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        child:  ConfirmTransfer_Page(),
+                        type: PageTransitionType.bottomToTop));
+              }
+
             },
           )
           // MaterialButton_widget(
@@ -174,7 +277,6 @@ class Detail_Transfer_page extends StatelessWidget {
     );
   }
 }
-
 class Reminder_widget extends StatelessWidget {
   final IconData icon;
   final String loiNhan;
@@ -214,7 +316,7 @@ class Reminder_widget extends StatelessWidget {
 }
 
 class ToAccount_Widget extends StatelessWidget {
-  final String AccountName;
+  final String? AccountName;
 
   const ToAccount_Widget({
     Key? key,
@@ -238,7 +340,7 @@ class ToAccount_Widget extends StatelessWidget {
           height: 32,
         ),
         Text(
-          AccountName,
+          AccountName!,
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -282,42 +384,42 @@ class FormAccount_Widget extends StatelessWidget {
   }
 }
 
-class HuChiTieu_Container extends StatelessWidget {
-  const HuChiTieu_Container({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 30),
-      padding: const EdgeInsets.only(top: 10, bottom: 10, left: 6),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: Colors.grey.withOpacity(0.15)),
-      child: Row(
-        children: [
-          Image.asset(
-            'assets/images/money_bag.png',
-            width: 34,
-            height: 34,
-          ),
-          FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Text(
-              'Hũ chi tiêu',
-              overflow: TextOverflow.clip,
-              style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black.withOpacity(0.4)),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
+// class HuChiTieu_Container extends StatelessWidget {
+//   const HuChiTieu_Container({
+//     Key? key,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       margin: const EdgeInsets.only(bottom: 30),
+//       padding: const EdgeInsets.only(top: 10, bottom: 10, left: 6),
+//       decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(4),
+//           color: Colors.grey.withOpacity(0.15)),
+//       child: Row(
+//         children: [
+//           Image.asset(
+//             'assets/images/money_bag.png',
+//             width: 34,
+//             height: 34,
+//           ),
+//           FittedBox(
+//             fit: BoxFit.fitWidth,
+//             child: Text(
+//               'Hũ chi tiêu',
+//               overflow: TextOverflow.clip,
+//               style: TextStyle(
+//                   fontSize: 13,
+//                   fontWeight: FontWeight.bold,
+//                   color: Colors.black.withOpacity(0.4)),
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class SoDuTaiKhoan_widget extends StatelessWidget {
   final String sodu;
@@ -351,29 +453,33 @@ class SoDuTaiKhoan_widget extends StatelessWidget {
                   children: [
                     Image.asset(
                       'assets/images/user_gif.gif',
-                      width: 28,
-                      height: 28,
+                      width: 30,
+                      height: 30,
                     ),
                     Text(
                       'Tài khoản chính',
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black.withOpacity(0.80)),
+                          color: Colors.black.withOpacity(0.6)),
                     ),
                     Icon(
                       Icons.verified,
                       color: Colors.tealAccent.shade400,
-                      size: 20,
+                      size: 22,
                     )
                   ],
                 ),
-                Text(
-                  sodu,
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black.withOpacity(0.3)),
+                Consumer<TransactionProvider>(
+                  builder: (context, value, child) {
+                    return Text(
+                      value.currentMoneyString,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black.withOpacity(0.3)),
+                    );
+                  },
                 )
               ],
             ),

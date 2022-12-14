@@ -1,10 +1,13 @@
+import 'package:banking_application/API/api_services.dart';
 import 'package:banking_application/Component/Build_container.dart';
 import 'package:banking_application/Component/appbar_wiget.dart';
 import 'package:banking_application/Component/slideBanner.dart';
+import 'package:banking_application/Provider/TransactionProvider.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
-import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:money_formatter/money_formatter.dart';
+import '../models/Balance.dart';
 
 class Home_page extends StatefulWidget {
   const Home_page({Key? key}) : super(key: key);
@@ -14,17 +17,21 @@ class Home_page extends StatefulWidget {
 }
 
 class _Home_pageState extends State<Home_page> {
-  String ID = "060260254505";
-  static const String balance = '2000000';
+  String iD = "068704070000489";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<TransactionProvider>(context, listen:  false).getBalance(iD);
+  }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    print('rebuild homepage');
     return Scaffold(
       body: getBody(),
     );
   }
-
   Widget getBody() {
     final size = MediaQuery.of(context).size;
     return SafeArea(
@@ -56,13 +63,15 @@ class _Home_pageState extends State<Home_page> {
                       children: [
                         Row(
                           children: [
-                             const Padding(
+                            const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: Icon(Icons.notifications_active,
-                              color: Colors.white,
-                              size: 16,),
+                              child: Icon(
+                                Icons.notifications_active,
+                                color: Colors.white,
+                                size: 16,
+                              ),
                             ),
-                            Text(
+                             Text(
                               'Bạn có 2 việc cần xử lý.',
                               style: TextStyle(
                                   color: Colors.white.withOpacity(0.9),
@@ -164,8 +173,23 @@ class _Home_pageState extends State<Home_page> {
                   Build_container(
                     size: size,
                     title: 'Tài khoản chính',
-                    subTitle: text_idTK(ID),
-                    nav_title: text_sodu(balance.toVND(unit: 'đ')),
+                    subTitle: text_idTK(iD),
+                    nav_title: Consumer<TransactionProvider>
+                      (builder: (context, value, child)  {
+                      return text_sodu(value.currentMoneyString);
+                    }),
+                    // nav_title: FutureBuilder<Balance>(
+                    //   future: ApiServices.intance.getBalance('068704070000489'),
+                    //   builder: (context, snapshot) {
+                    //     if (snapshot.hasData) {
+                    //       double? money = double.tryParse(snapshot.data?.data?.amount ?? "");
+                    //       return text_sodu(MoneyFormatter(amount: money!).output.withoutFractionDigits);
+                    //     } else if(snapshot.hasError){
+                    //       return Container();
+                    //     }
+                    //     return Container();
+                    //   },
+                    // ),
                   ),
                   Build_container(
                     size: size,
@@ -194,7 +218,7 @@ class _Home_pageState extends State<Home_page> {
                     nav_title: Center(
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                            const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
                             color: const Color(0xff2874B2)),

@@ -47,16 +47,16 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   google_fonts: ^3.0.1
-
   curved_navigation_bar: ^1.0.3
   carousel_slider: ^4.1.1
   smooth_page_indicator: ^1.0.0+2
-  font_awesome_flutter: ^10.2.1
-  flutter_format_money_vietnam: ^0.0.2
+  money_formatter: ^0.0.3
   page_transition: ^2.0.9
   device_preview: ^1.1.0
+  currency_text_input_formatter: ^2.1.8
   provider: ^6.0.4
   lottie: ^2.0.0
+  http: ^0.13.5
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

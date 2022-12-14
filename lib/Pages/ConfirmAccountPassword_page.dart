@@ -137,7 +137,7 @@ class ConfirmAccountPassword_page extends StatelessWidget {
                         PageRouteBuilder(
                             pageBuilder:
                                 (context, animation, secondaryAnimation) =>
-                                    const LoadAnimSuccessfullyPage(),
+                                    const LoadAnimSuccessfullyPage(title: 'Đăng ký thành công'),
                             opaque: false));
                   },
                 )
