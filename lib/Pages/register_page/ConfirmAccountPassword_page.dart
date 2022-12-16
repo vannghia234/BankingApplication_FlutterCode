@@ -175,8 +175,7 @@ class _ConfirmAccountPassword_pageState
                             onSaved: (newValue) {
                               Provider.of<InfoAccountProvider>(context,
                                           listen: false)
-                                      .password =
-                                  encryptPassword(newValue!).toString();
+                                      .password = newValue;
                             },
                             keyboardType: TextInputType.text,
                             style: App_Style.openSanGoogle(18).copyWith(
@@ -246,7 +245,6 @@ class _ConfirmAccountPassword_pageState
                           type: QuickAlertType.error,
                           text: 'tài khoản đã tồn tại trong hệ thống',
                           confirmBtnColor: App_color.primaryColor,
-                          autoCloseDuration: Duration(seconds: 4),
                         );
                         break;
                       case "03":
@@ -255,7 +253,6 @@ class _ConfirmAccountPassword_pageState
                           type: QuickAlertType.error,
                           text: 'lỗi hệ thống, vui lòng thử lại nhe',
                           confirmBtnColor: App_color.primaryColor,
-                          autoCloseDuration: Duration(seconds: 4),
                         );
                         break;
                       case "99":
@@ -264,7 +261,6 @@ class _ConfirmAccountPassword_pageState
                           type: QuickAlertType.error,
                           text: 'Hệ thống đang bảo trì, quay lại sau nhé',
                           confirmBtnColor: App_color.primaryColor,
-                          autoCloseDuration: Duration(seconds: 4),
                         );
                         break;
                       case "09":
@@ -273,7 +269,6 @@ class _ConfirmAccountPassword_pageState
                           type: QuickAlertType.error,
                           text: 'tài khoản ngân hàng không hợp lệ',
                           confirmBtnColor: App_color.primaryColor,
-                          autoCloseDuration: Duration(seconds: 4),
                         );
                         break;
                       case "00":

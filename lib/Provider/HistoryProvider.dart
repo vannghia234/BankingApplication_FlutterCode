@@ -23,7 +23,7 @@ class HistoryProvider extends ChangeNotifier {
           },
           body: jsonEncode({
             "data": {
-              "acctNo": iD,
+              "acctNo": CheckValue.iD,
               "fromDate": "23012021",
               "toDate": "30012021"
             },

@@ -1,5 +1,5 @@
 import 'package:banking_application/Pages/LoginPage.dart';
-import 'package:banking_application/Pages/change_info_page.dart';
+import 'package:banking_application/Pages/setting_page/change_info_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';

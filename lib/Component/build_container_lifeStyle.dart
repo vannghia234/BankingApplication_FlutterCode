@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../app_style/app_color/App_color.dart';
 
 class Build_container_lifeStyle extends StatelessWidget {
-  final Icon icon;
+  final IconData icon;
   final Size size;
   final String title;
   final String subtitle;
@@ -18,7 +18,7 @@ class Build_container_lifeStyle extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                   blurStyle: BlurStyle.outer,
                   color: Colors.black26,
@@ -27,15 +27,15 @@ class Build_container_lifeStyle extends StatelessWidget {
             ]),
         child: Center(
           child:  ListTile(
-            leading: icon,
+            leading: Icon(icon, size: 40, color: App_color.primaryColor,),
             title: Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.bold
               ),
             ),
             subtitle: Text(
-              subtitle, style: TextStyle(
+              subtitle, style: const TextStyle(
                 fontSize: 13
             ),),
             style: ListTileStyle.list,

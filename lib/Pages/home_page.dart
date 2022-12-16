@@ -18,7 +18,7 @@ class _Home_pageState extends State<Home_page> {
     // TODO: implement initState
     super.initState();
     print('rfreashtoken: ${ApiServices.REFRESH_TOKEN}');
-    Provider.of<TransactionProvider>(context, listen:  false).getBalance(iD);
+    Provider.of<TransactionProvider>(context, listen:  false).getBalance(CheckValue.iD);
   }
   @override
   Widget build(BuildContext context) {
@@ -168,7 +168,7 @@ class _Home_pageState extends State<Home_page> {
                   Build_container(
                     size: size,
                     title: 'Tài khoản chính',
-                    subTitle: text_idTK(iD),
+                    subTitle: text_idTK(CheckValue.iD),
                     nav_title: Consumer<TransactionProvider>
                       (builder: (context, value, child)  {
                       return (value == null) ? Container() : text_sodu(value.currentMoneyString);

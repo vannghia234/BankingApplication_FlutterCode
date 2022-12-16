@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:banking_application/API/api_urls.dart';
+import 'package:banking_application/models/ResponseChangePassword.dart';
 import 'package:banking_application/models/ResponseLogin.dart';
 import 'package:http/http.dart' as http;
 
+import '../app_style/func/CheckValue.dart';
 import '../models/ResponseRegister.dart';
 import '../models/ResponseTransfer.dart';
+import '../models/responsePublicKey.dart';
 
 class ApiServices {
   ApiServices._();
@@ -51,6 +54,48 @@ class ApiServices {
     return throw Exception('fail to dang ky');
     // print('Stt code${response.statusCode}');
   }
+  Future<ResponseChangePassword> reponseChangePassword({required String credential, required String username, required String password, required String newPass}) async {
+    try{
+      final ress = await http.post(ApiUrls.api_changePassword,
+        body: jsonEncode(
+            <String,String>{
+              "credential": 'OGRkyAeJZvLuTDC/Rq8lm5bsLmAZdZ9W8xPU3i4+PMk8Y14rwJyDV2MS9OV1zRSUbc8WfJDd18AxYRUxAzM8HIleBs3gQp+nGbhgDTlSSZ8mtwo6h9uU2z9j2ItD6FGJjCCR8+xU8yWBK+lD6L/dZuSrdA4khwY6PPg6eU3cv2s=',
+              "userName" : '0234823433',
+              "password" : 'Nghiadz@123',
+              "newPass" : 'Nghiadz@111'
+            }
+        )
+      );
+      ResponseChangePassword ka = ResponseChangePassword.fromJson(jsonDecode(ress.body));
+      print('request reset112: ${ka.result?.response?.responseCode}');
+      return ka;
+    }catch(e){
+      print(e);
+    }
+    return throw Exception('lỗi đổi mật khẩu key');
+  }
+
+
+
+
+  Future<String?> getPublicKey() async {
+    try{
+      final rs = await http.get(ApiUrls.api_getPublicKey,
+        headers: <String, String>{
+          'accept': 'application/json',
+          'access-token': REFRESH_TOKEN,
+          'x-api-key': 'hutech_hackathon@123456',
+        },
+      );
+      ResponsePublicKey k = ResponsePublicKey.fromJson(jsonDecode(rs.body));
+      print('publickey: ${k.data?.key}');
+      return k.data?.key;
+    }catch(e){
+      print(e);
+    }
+    return throw Exception('lỗi lấy public key');
+
+  }
 
   Future<ResponseLogin> getAcccNo(
       {required String username, required String password}) async {
@@ -62,6 +107,9 @@ class ApiServices {
           'Content-Type': 'application/json'
         },
         body: jsonEncode({"username": username, "password": password}));
+    ResponseLogin r = ResponseLogin.fromJson(jsonDecode(res.body));
+    CheckValue.iD = r.result?.data?.accountNo ?? "";
+    print('số tài khoản: ${CheckValue.iD}');
     print(
         'login success: ${ResponseLogin.fromJson(jsonDecode(res.body)).result?.response?.responseCode}');
     return ResponseLogin.fromJson(jsonDecode(res.body));
@@ -106,7 +154,7 @@ class ApiServices {
           "data": {
             "amount": amount,
             "description": des,
-            "fromAcct": "068704070000489",
+            "fromAcct": CheckValue.iD,
             "toAcct": to
           },
           "request": {

@@ -3,6 +3,7 @@ import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
 import 'package:banking_application/models/ToBanking.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../Component/FormInputSuffix_Widget.dart';
@@ -140,6 +141,7 @@ class Transfer_Page extends StatelessWidget {
                               letterSpacing: 2,
                               color: Colors.black.withOpacity(0.75)),
                           keyboardType: TextInputType.number,
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           textAlignVertical: TextAlignVertical.center,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.only(top: 5, bottom: 5),
@@ -176,7 +178,7 @@ class Transfer_Page extends StatelessWidget {
                           inputFormatters: [UpperCaseTextFormatter()],
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'vui lòng nhập số tài khoản';
+                              return 'vui lòng nhập tên tài khoản';
                             }
                             return null;
                           },
@@ -192,6 +194,7 @@ class Transfer_Page extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           textAlignVertical: TextAlignVertical.center,
                           decoration: const InputDecoration(
+
                             contentPadding: EdgeInsets.only(top: 5, bottom: 5),
                             suffixIcon: Icon(
                               Icons.edit,

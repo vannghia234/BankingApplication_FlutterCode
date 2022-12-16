@@ -25,7 +25,7 @@ class _LoadingAnimationPageState extends State<LoadingAnimationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white54,
+      backgroundColor: Colors.white70,
       body: Center(
         child: Stack(
           alignment: Alignment.center,

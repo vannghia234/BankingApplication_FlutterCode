@@ -48,6 +48,12 @@ class _FormPasswordState extends State<FormPassword> {
           ]),
       child: Center(
         child: TextFormField(
+          validator: (value) {
+            if(value!.isEmpty || value == null){
+              return 'vui lòng nhập thông tin.';
+            }
+            return null;
+          },
           onChanged: (value) {
             FormPassword.password = value;
           },

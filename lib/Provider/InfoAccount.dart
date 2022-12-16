@@ -5,13 +5,11 @@ class InfoAccountProvider extends ChangeNotifier{
   String? _email;
   String? _soCccd;
   String? _password;
-
   String? get sdt => _sdt;
   set sdt(String? value) {
     _sdt = value;
     notifyListeners();
   }
-
   String? get hoVaTen => _hoVaTen;
 
   set hoVaTen(String? value){

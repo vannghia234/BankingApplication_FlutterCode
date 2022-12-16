@@ -103,7 +103,7 @@ class ConfirmTransfer_Page extends StatelessWidget {
             text: 'chuyển tiền ngay',
             onTapp: () async {
               print("số tiền: $soTien");
-              final response = await ApiServices.intance.resultTransfer(amount: soTien.toString(), des: 'mess', to: '003704070000276');
+              final response = await ApiServices.intance.resultTransfer(amount: soTien.toString(), des: 'mess', to: infoBanking?.soTaiKhoan??"");
               // amount: soTien.toString(), description: loiNhan.toString(), toAcct: infoBanking?.soTaiKhoan
              print(response.response?.responseCode);
               switch (response.response?.responseCode) {
@@ -113,7 +113,6 @@ class ConfirmTransfer_Page extends StatelessWidget {
                     type: QuickAlertType.warning,
                     text: 'số dư trong tài khoản của bạn không đủ để thực hiện',
                     confirmBtnColor: App_color.primaryColor,
-                    autoCloseDuration: Duration(seconds: 4),
                   );
                   break;
                 case "99":
@@ -122,7 +121,6 @@ class ConfirmTransfer_Page extends StatelessWidget {
                     type: QuickAlertType.error,
                     text: 'Hệ thống đang bảo trì, quay lại sau nhé',
                     confirmBtnColor: App_color.primaryColor,
-                    autoCloseDuration: Duration(seconds: 4),
                   );
                   break;
                 case "09":
@@ -131,7 +129,6 @@ class ConfirmTransfer_Page extends StatelessWidget {
                     type: QuickAlertType.error,
                     text: 'tài khoản ngân hàng không hợp lệ',
                     confirmBtnColor: App_color.primaryColor,
-                    autoCloseDuration: Duration(seconds: 4),
                   );
                   break;
                 case "00":

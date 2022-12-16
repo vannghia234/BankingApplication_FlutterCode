@@ -8,4 +8,6 @@ class ApiUrls{
   static final Uri api_getPayment = Uri.parse('https://7ucpp7lkyl.execute-api.ap-southeast-1.amazonaws.com/dev/getpayment');
   static final api_register = Uri.parse('http://10.0.2.2:8080/api/v1/register');
   static final api_login = Uri.parse('http://10.0.2.2:8080/api/v1/login');
+  static final api_changePassword = Uri.parse('http://10.0.2.2:8080/api/v1/resetpassword');
+  static final api_getPublicKey = Uri.parse('https://7ucpp7lkyl.execute-api.ap-southeast-1.amazonaws.com/dev/get_key');
 }

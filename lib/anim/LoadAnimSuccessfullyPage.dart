@@ -18,34 +18,23 @@ class LoadAnimSuccessfullyPage extends StatefulWidget {
 }
 
 class _LoadAnimSuccessfullyPageState extends State<LoadAnimSuccessfullyPage> {
-   String text = "";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(const Duration(seconds: 3), () =>    setState(() {
-      text = widget.title;
-    }),);
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.push(context, MaterialPageRoute(builder: (context) => (widget.home == null) ? const LoginPage() : const Root_app(),));
-
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white54,
+      backgroundColor: Colors.white70,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(child: Lottie.asset('assets/images/loadsuccess.json', width: 200, height: 200)),
-          const SizedBox(height: 20,),
-           Center(
-            child: Text(text, style:  TextStyle(
-              fontSize: 28, color: Colors.greenAccent.shade400,
-              fontWeight: FontWeight.bold,
-            ),),
-          )
+          Center(child: Lottie.network('https://assets10.lottiefiles.com/packages/lf20_m2igjaux.json', width: 250, height: 250),),
+          // Center(child: Lottie.asset('assets/images/loadsuccess.json', width: 200, height: 200)),
         ],
       ),
     );
