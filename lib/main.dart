@@ -1,17 +1,18 @@
 import 'package:banking_application/Pages/LoginPage.dart';
+import 'package:banking_application/Provider/HistoryProvider.dart';
+import 'package:banking_application/Provider/InfoAccount.dart';
 import 'package:banking_application/Provider/TransactionProvider.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'Pages/root_app.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => TransactionProvider(),)
+      ChangeNotifierProvider(create: (context) => TransactionProvider(),),
+      ChangeNotifierProvider(create: (context) => HistoryProvider(),),
+      ChangeNotifierProvider(create: (context) => InfoAccountProvider(),)
     ],
     child: DevicePreview(
       enabled: !kReleaseMode,

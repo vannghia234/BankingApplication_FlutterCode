@@ -1,14 +1,14 @@
 import 'package:banking_application/Component/ButtonWidget.dart';
-import 'package:banking_application/Pages/ConfirmAccountPassword_page.dart';
-import 'package:banking_application/models/ToBanking.dart';
+import 'package:banking_application/Pages/register_page/ConfirmAccountPassword_page.dart';
+import 'package:banking_application/Provider/InfoAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:provider/provider.dart';
 import '../../app_style/app_styles/App_style.dart';
 
 class MainRegisterPage extends StatelessWidget {
   const MainRegisterPage({Key? key}) : super(key: key);
-
+  static  GlobalKey<FormState> keyInfoAccount = GlobalKey<FormState>();
   AppBar getAppbar(context) {
     return AppBar(
       backgroundColor: Colors.transparent,
@@ -31,7 +31,6 @@ class MainRegisterPage extends StatelessWidget {
       ),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -50,12 +49,12 @@ class MainRegisterPage extends StatelessWidget {
               'Người bạn đồng hành tin cậy',
               style: App_Style.primaryStyle().copyWith(
                   letterSpacing: 1,
-                  fontStyle: FontStyle.italic,
                   color: Colors.black.withOpacity(0.5),
                   fontSize: 14),
             ),
             const Spacer(),
             Form(
+              key: keyInfoAccount,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -63,7 +62,7 @@ class MainRegisterPage extends StatelessWidget {
                   children: [
                     TextFormField(
                       inputFormatters: [
-                        UpperCaseTextFormatter()
+                        UpperCaseTextFormatter(),
                       ],
                       textCapitalization: TextCapitalization.characters,
                       style: App_Style.primaryStyle().copyWith(
@@ -72,12 +71,15 @@ class MainRegisterPage extends StatelessWidget {
                       maxLength: 50,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Vui lòng nhập tên của bạn';
                         }
                         return null;
                       },
-                      onSaved: (newValue) {},
+                      onSaved: (newValue) {
+                        Provider.of<InfoAccountProvider>(context, listen:  false).hoVaTen = newValue;
+                      },
                       decoration: InputDecoration(
+                        counterText: '',
                           filled: true,
                           fillColor: Colors.grey.shade200,
                           enabledBorder: OutlineInputBorder(
@@ -99,17 +101,28 @@ class MainRegisterPage extends StatelessWidget {
                           )),
                       textAlign: TextAlign.left,
                     ),
+                    const SizedBox(
+                      height: 25,
+                    ),
                     TextFormField(
+
                       style: App_Style.primaryStyle().copyWith(
                           color: Colors.black.withOpacity(0.75),
                           letterSpacing: 1),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'vui lòng nhập email';
+                        }
+                        bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value);
+                        if(!emailValid){
+                          return 'email không hợp lệ';
                         }
                         return null;
                       },
-                      onSaved: (newValue) {},
+                      onSaved: (newValue) {
+                        Provider.of<InfoAccountProvider>(context, listen:  false).email = newValue;
+                      },
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.grey.shade200,
@@ -141,12 +154,22 @@ class MainRegisterPage extends StatelessWidget {
                           letterSpacing: 3),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'vui lòng nhập số căn cước công dân';
+                        }
+                        if(value.length != 12){
+                          return 'không hợp lệ, số CCCD phải gồm 12 chữ số';
                         }
                         return null;
                       },
-                      onSaved: (newValue) {},
+                      onSaved: (newValue) {
+                        Provider.of<InfoAccountProvider>(context, listen:  false).soCccd = newValue;
+                      },
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      maxLength: 12,
                       decoration: InputDecoration(
+                        counterText: '',
                           filled: true,
                           fillColor: Colors.grey.shade200,
                           enabledBorder: OutlineInputBorder(
@@ -180,20 +203,21 @@ class MainRegisterPage extends StatelessWidget {
               size: size,
               text: 'Tiếp tục',
               onTapp: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ConfirmAccountPassword_page(),
-                    ));
+                if(keyInfoAccount.currentState?.validate() == true){
+                  keyInfoAccount.currentState?.save();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>  const ConfirmAccountPassword_page(),
+                      ));
+                }
               },
             )
           ],
         ),
       ),
     );
-
   }
-
 }
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override

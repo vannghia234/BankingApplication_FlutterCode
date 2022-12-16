@@ -1,18 +1,28 @@
 import 'package:banking_application/API/api_services.dart';
 import 'package:banking_application/Component/ButtonWidget.dart';
+import 'package:banking_application/Provider/TransactionProvider.dart';
 import 'package:banking_application/anim/LoadAnimSuccessfullyPage.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
+import 'package:banking_application/models/ToBanking.dart';
 import 'package:flutter/material.dart';
-
+import 'package:money_formatter/money_formatter.dart';
+import 'package:provider/provider.dart';
+import 'package:quickalert/quickalert.dart';
 import 'InputTransferPage.dart';
 
 class ConfirmTransfer_Page extends StatelessWidget {
-  const ConfirmTransfer_Page({Key? key}) : super(key: key);
-
+  const ConfirmTransfer_Page(
+      {Key? key, required this.loiNhan, this.infoBanking, this.soTien})
+      : super(key: key);
+  final ToBanking? infoBanking;
+  final String? soTien;
+  final String loiNhan;
 
   @override
   Widget build(BuildContext context) {
+    // print('lời nhắn: $loiNhan');
+    print('rebuild detaiTransfer');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: getAppbar(context),
@@ -47,7 +57,9 @@ class ConfirmTransfer_Page extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          const SoDuBar_widget(soDu: '2.000.000.000'),
+          SoDuBar_widget(
+            soDu: soTien,
+          ),
           Column(
             children: [
               Padding(
@@ -55,10 +67,12 @@ class ConfirmTransfer_Page extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
                 child: InfoTransfer_widget(
                   size: size,
-                  loiNhan: 'Nguyen Van nghia chuyen tien tu Sacombank',
+                  loiNhan: loiNhan,
+                  soTien: soTien,
+                  infobanking: infoBanking,
                 ),
               ),
-               const Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Reminder_widget(
                     icon: Icons.info_outline,
@@ -69,14 +83,14 @@ class ConfirmTransfer_Page extends StatelessWidget {
                 height: 5,
               ),
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                 width: size.width - 20,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(6),
                     color: Colors.grey.withOpacity(0.09)),
                 child: Center(
                     child: Text(
-                  'Nguyen Van nghia chuyen tien tu Sacombank',
+                  loiNhan ?? "",
                   textAlign: TextAlign.center,
                   style: App_Style.primaryStyle().copyWith(fontSize: 14),
                 )),
@@ -88,15 +102,50 @@ class ConfirmTransfer_Page extends StatelessWidget {
             size: size,
             text: 'chuyển tiền ngay',
             onTapp: () async {
-              final response = await ApiServices.intance.resultTransfer();
-              if (response.response?.responseCode == "00") {
-                Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                      const LoadAnimSuccessfullyPage(title: 'chuyển tiền thành công', home: true,),
-                      opaque: false,
-                    ));
+              print("số tiền: $soTien");
+              final response = await ApiServices.intance.resultTransfer(amount: soTien.toString(), des: 'mess', to: '003704070000276');
+              // amount: soTien.toString(), description: loiNhan.toString(), toAcct: infoBanking?.soTaiKhoan
+             print(response.response?.responseCode);
+              switch (response.response?.responseCode) {
+                case "04":
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.warning,
+                    text: 'số dư trong tài khoản của bạn không đủ để thực hiện',
+                    confirmBtnColor: App_color.primaryColor,
+                    autoCloseDuration: Duration(seconds: 4),
+                  );
+                  break;
+                case "99":
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.error,
+                    text: 'Hệ thống đang bảo trì, quay lại sau nhé',
+                    confirmBtnColor: App_color.primaryColor,
+                    autoCloseDuration: Duration(seconds: 4),
+                  );
+                  break;
+                case "09":
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.error,
+                    text: 'tài khoản ngân hàng không hợp lệ',
+                    confirmBtnColor: App_color.primaryColor,
+                    autoCloseDuration: Duration(seconds: 4),
+                  );
+                  break;
+                case "00":
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                        const LoadAnimSuccessfullyPage(
+                          title: 'chuyển tiền thành công',
+                          home: true,
+                        ),
+                        opaque: false,
+                      ));
+                  break;
               }
             },
           )
@@ -108,10 +157,16 @@ class ConfirmTransfer_Page extends StatelessWidget {
 
 class InfoTransfer_widget extends StatelessWidget {
   final Size size;
-  final String loiNhan;
+  final String? loiNhan;
+  final String? soTien;
+  final ToBanking? infobanking;
 
   const InfoTransfer_widget(
-      {Key? key, required this.size, required this.loiNhan})
+      {Key? key,
+      required this.size,
+      required this.loiNhan,
+      required this.soTien,
+      required this.infobanking})
       : super(key: key);
 
   @override
@@ -121,7 +176,7 @@ class InfoTransfer_widget extends StatelessWidget {
       width: size.width - 30,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: Colors.grey, width: 0.5),
+        border: Border.all(color: Colors.black26, width: 0.5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -135,7 +190,7 @@ class InfoTransfer_widget extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius:
                         const BorderRadius.vertical(top: Radius.circular(10)),
-                    color: Colors.grey.withOpacity(0.2),
+                    color: Colors.grey.withOpacity(0.18),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +201,9 @@ class InfoTransfer_widget extends StatelessWidget {
                         style: App_Style.primaryStyle().copyWith(fontSize: 14),
                       ),
                       Text(
-                        '-1.000.000 ',
+                        MoneyFormatter(amount: double.parse(soTien!))
+                            .output
+                            .withoutFractionDigits,
                         style: App_Style.primaryStyle().copyWith(
                             color: App_color.primaryColor, fontSize: 22),
                       )
@@ -160,27 +217,27 @@ class InfoTransfer_widget extends StatelessWidget {
               child: From_To_widget(
             to: 'Từ',
             name: 'Nguyen van nghia',
-            bankingName: 'Sacombank',
+            bankingName: 'NQPay',
             iD: '060260253834',
           )),
           const Divider(
             color: Colors.grey,
             thickness: 0.5,
-            indent: 10,
-            endIndent: 10,
+            indent: 15,
+            endIndent: 15,
           ),
-          const Expanded(
+          Expanded(
               child: From_To_widget(
             to: 'Đến',
-            name: 'Nguyen Hoang Phuc',
-            bankingName: 'Agribank - NH Nông nghiệp và\n PTNT VN',
+            name: infobanking?.tenTaiKhoan,
+            bankingName: infobanking?.tenNganHang,
             iD: '5559383453',
           )),
           const Divider(
             color: Colors.grey,
             thickness: 0.5,
-            indent: 10,
-            endIndent: 10,
+            indent: 15,
+            endIndent: 15,
           ),
           Expanded(
             child: LoiNhan_widget(
@@ -194,7 +251,7 @@ class InfoTransfer_widget extends StatelessWidget {
 }
 
 class LoiNhan_widget extends StatelessWidget {
-  final String loiNhan;
+  final String? loiNhan;
 
   const LoiNhan_widget({Key? key, required this.loiNhan}) : super(key: key);
 
@@ -225,10 +282,10 @@ class LoiNhan_widget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  loiNhan,
+                  loiNhan ?? "",
                   style: App_Style.primaryStyle().copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black.withOpacity(0.55),
+                      color: Colors.black.withOpacity(0.7),
                       fontSize: 14),
                 ),
               ],
@@ -239,9 +296,9 @@ class LoiNhan_widget extends StatelessWidget {
 }
 
 class From_To_widget extends StatelessWidget {
-  final String name;
+  final String? name;
   final String to;
-  final String bankingName;
+  final String? bankingName;
   final String iD;
 
   const From_To_widget(
@@ -279,7 +336,7 @@ class From_To_widget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name.toUpperCase(),
+                  name?.toUpperCase() ?? "",
                   style: App_Style.primaryStyle().copyWith(
                       letterSpacing: 0.15,
                       color: Colors.black.withOpacity(0.7),
@@ -289,7 +346,7 @@ class From_To_widget extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  bankingName,
+                  bankingName!,
                   style: App_Style.primaryStyle().copyWith(
                       color: Colors.black.withOpacity(0.4), fontSize: 15),
                 ),
@@ -311,7 +368,7 @@ class From_To_widget extends StatelessWidget {
 }
 
 class SoDuBar_widget extends StatelessWidget {
-  final String soDu;
+  final String? soDu;
 
   const SoDuBar_widget({Key? key, required this.soDu}) : super(key: key);
 
@@ -329,10 +386,14 @@ class SoDuBar_widget extends StatelessWidget {
             style: App_Style.primaryStyle()
                 .copyWith(color: Colors.white.withOpacity(0.85), fontSize: 14),
           ),
-          Text(
-            soDu,
-            style: App_Style.primaryStyle()
-                .copyWith(color: Colors.white, letterSpacing: 0.5),
+          Consumer<TransactionProvider>(
+            builder: (context, value, child) {
+              return Text(
+                value.currentMoneyString,
+                style: App_Style.primaryStyle()
+                    .copyWith(color: Colors.white, letterSpacing: 0.5),
+              );
+            },
           ),
         ],
       ),

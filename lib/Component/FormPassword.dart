@@ -9,6 +9,8 @@ class FormPassword extends StatefulWidget {
   const FormPassword(
       {Key? key, required this.size, required this.icon, required this.lable})
       : super(key: key);
+  static String password = "password";
+
 
   @override
   State<FormPassword> createState() => _FormPasswordState();
@@ -46,6 +48,9 @@ class _FormPasswordState extends State<FormPassword> {
           ]),
       child: Center(
         child: TextFormField(
+          onChanged: (value) {
+            FormPassword.password = value;
+          },
           keyboardType: TextInputType.text,
           obscureText: obs,
           style: App_Style.openSanGoogle(18).copyWith(

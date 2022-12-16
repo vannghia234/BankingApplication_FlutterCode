@@ -262,7 +262,7 @@ class _Root_appState extends State<Root_app> {
                 child: Column(
                   children: [
                     Icon(
-                      Icons.menu,
+                      Icons.space_dashboard_rounded,
                       color: Colors.grey.withOpacity(0.7),
                       size: 30,
                     ),

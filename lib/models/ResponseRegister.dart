@@ -1,10 +1,31 @@
-class Balance {
+
+class ResponseRegister {
+  Result? result;
+
+  ResponseRegister({this.result});
+
+  ResponseRegister.fromJson(Map<String, dynamic> json) {
+    if(json["result"] is Map) {
+      result = json["result"] == null ? null : Result.fromJson(json["result"]);
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> _data = <String, dynamic>{};
+    if(result != null) {
+      _data["result"] = result?.toJson();
+    }
+    return _data;
+  }
+}
+
+class Result {
   Response? response;
   Data? data;
 
-  Balance({this.response, this.data});
+  Result({this.response, this.data});
 
-  Balance.fromJson(Map<String, dynamic> json) {
+  Result.fromJson(Map<String, dynamic> json) {
     if(json["response"] is Map) {
       response = json["response"] == null ? null : Response.fromJson(json["response"]);
     }
@@ -26,18 +47,19 @@ class Balance {
 }
 
 class Data {
-  String? amount;
-  Data({this.amount});
+  String? userId;
+
+  Data({this.userId});
 
   Data.fromJson(Map<String, dynamic> json) {
-    if(json["amount"] is String) {
-      amount = json["amount"];
+    if(json["userId"] is String) {
+      userId = json["userId"];
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["amount"] = amount;
+    _data["userId"] = userId;
     return _data;
   }
 }

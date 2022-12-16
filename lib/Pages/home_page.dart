@@ -1,4 +1,3 @@
-import 'package:banking_application/API/api_services.dart';
 import 'package:banking_application/Component/Build_container.dart';
 import 'package:banking_application/Component/appbar_wiget.dart';
 import 'package:banking_application/Component/slideBanner.dart';
@@ -6,25 +5,21 @@ import 'package:banking_application/Provider/TransactionProvider.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:money_formatter/money_formatter.dart';
-import '../models/Balance.dart';
-
+import '../API/api_services.dart';
+import '../app_style/func/CheckValue.dart';
 class Home_page extends StatefulWidget {
   const Home_page({Key? key}) : super(key: key);
-
   @override
   State<Home_page> createState() => _Home_pageState();
 }
-
 class _Home_pageState extends State<Home_page> {
-  String iD = "068704070000489";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print('rfreashtoken: ${ApiServices.REFRESH_TOKEN}');
     Provider.of<TransactionProvider>(context, listen:  false).getBalance(iD);
   }
-
   @override
   Widget build(BuildContext context) {
     print('rebuild homepage');
@@ -176,7 +171,7 @@ class _Home_pageState extends State<Home_page> {
                     subTitle: text_idTK(iD),
                     nav_title: Consumer<TransactionProvider>
                       (builder: (context, value, child)  {
-                      return text_sodu(value.currentMoneyString);
+                      return (value == null) ? Container() : text_sodu(value.currentMoneyString);
                     }),
                     // nav_title: FutureBuilder<Balance>(
                     //   future: ApiServices.intance.getBalance('068704070000489'),

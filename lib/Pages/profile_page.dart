@@ -126,7 +126,7 @@ class Profile_page extends StatelessWidget {
                           color: Colors.white24,
                         ),
                         _build_iconColumn(
-                            Icons.language, 'Thay đổi thông tin', size),
+                            Icons.g_translate, 'Thay đổi ngôn ngữ', size),
                         const VerticalDivider(
                           thickness: 0.5,
                           color: Colors.white24,
@@ -213,7 +213,7 @@ class Profile_page extends StatelessWidget {
                     fontSize: 14,
                     decoration: TextDecoration.underline,
                     decorationThickness: 2,
-                    color: Colors.black.withOpacity(0.8),
+                    color: Colors.black.withOpacity(0.5),
                   ),
                   children: const [
                     TextSpan(

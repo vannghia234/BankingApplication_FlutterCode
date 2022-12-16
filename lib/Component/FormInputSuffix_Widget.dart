@@ -22,6 +22,7 @@ class FormInputSuffix_Widget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 18),
       height: size.width * 0.17,
+
       padding: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

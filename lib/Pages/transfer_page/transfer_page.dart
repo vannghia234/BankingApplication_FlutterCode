@@ -1,3 +1,4 @@
+import 'package:banking_application/Provider/HistoryProvider.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
 import 'package:banking_application/models/ToBanking.dart';
@@ -85,6 +86,7 @@ class Transfer_Page extends StatelessWidget {
                               color: Colors.black.withOpacity(0.7)),
                           textAlignVertical: TextAlignVertical.center,
                           decoration: const InputDecoration(
+                            counterText: '',
                             icon: Icon(Icons.edit),
                             contentPadding: EdgeInsets.only(top: 5, bottom: 5),
                             suffixIcon: Icon(

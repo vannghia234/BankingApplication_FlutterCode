@@ -1,4 +1,4 @@
-import 'package:banking_application/Pages/register_page/changePassword_page.dart';
+import 'package:banking_application/Pages/changePassword_page.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
 import 'package:flutter/material.dart';

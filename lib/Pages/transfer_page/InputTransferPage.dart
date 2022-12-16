@@ -20,11 +20,11 @@ class Detail_Transfer_page extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final _keyTransfer = GlobalKey<FormState>();
     String soTien = "";
-    String? loiNhan = "";
+    String LOINHAN = "";
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: getAppbar(context),
-      body: getBody(size, context, _keyTransfer, soTien, loiNhan),
+      body: getBody(size, context, _keyTransfer, soTien, LOINHAN, InfoBanking),
     );
   }
 
@@ -51,7 +51,7 @@ class Detail_Transfer_page extends StatelessWidget {
     );
   }
 
-  getBody(Size size, BuildContext context, GlobalKey<FormState> keyTransfer, String soTien, String? loiNhan) {
+  getBody(Size size, BuildContext context, GlobalKey<FormState> keyTransfer, String soTien, String loiNhan, ToBanking? infoBanking) {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -82,10 +82,10 @@ class Detail_Transfer_page extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               FormAccount_Widget(),
                               SoDuTaiKhoan_widget(
-                                sodu: '250.000',
                               ),
                             ],
                           ),
@@ -94,7 +94,7 @@ class Detail_Transfer_page extends StatelessWidget {
                     ),
                   ),
                   const Divider(
-                    thickness: 0.6,
+                    thickness: 0.5,
                     indent: 15,
                     endIndent: 15,
                     color: Colors.grey,
@@ -112,7 +112,7 @@ class Detail_Transfer_page extends StatelessWidget {
                                 InfoBanking?.tenNganHang ?? "",
                                 style: App_Style.primaryStyle().copyWith(
                                     color: Colors.black.withOpacity(0.7),
-                                    fontSize: 14),
+                                    fontSize: 15),
                               ),
                               const SizedBox(
                                 width: 5,
@@ -121,7 +121,7 @@ class Detail_Transfer_page extends StatelessWidget {
                                 InfoBanking?.soTaiKhoan ?? "",
                                 style: App_Style.primaryStyle().copyWith(
                                     color: Colors.black.withOpacity(0.4),
-                                    fontSize: 14),
+                                    fontSize: 15),
                               ),
                             ],
                           ),
@@ -169,8 +169,8 @@ class Detail_Transfer_page extends StatelessWidget {
                         }
                         return null;
                       },
-                      onSaved: (newValue) {
-                        soTien = CurrencyTextInputFormatter().format(newValue!);
+                      onChanged: (value) {
+                        soTien = parseMoneyToString(value);
                       },
                       initialValue: '0',
                       keyboardType: TextInputType.number,
@@ -181,7 +181,6 @@ class Detail_Transfer_page extends StatelessWidget {
                           color: Colors.black.withOpacity(0.7)),
                       textAlignVertical: TextAlignVertical.center,
                       decoration: const InputDecoration(
-
                         contentPadding: EdgeInsets.only(top: 5, bottom: 5),
                         suffixIcon:  Icon(
                           Icons.edit,
@@ -194,49 +193,48 @@ class Detail_Transfer_page extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 18),
+                  height: size.width * 0.17,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black26.withOpacity(0.15),
+                            blurRadius: 9,
+                            offset: const Offset(0, 3))
+                      ]),
+                  child: Center(
+                    child: TextFormField(
+                      onSaved: (newValue) {
+                        loiNhan = newValue!;
+                      },
+                      keyboardType: TextInputType.text,
+                      style: App_Style.openSanGoogle(18).copyWith(
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0,
+                          color: Colors.black.withOpacity(0.7)),
+                      textAlignVertical: TextAlignVertical.center,
+                      maxLength: 150,
+                      decoration: const InputDecoration(
+                        counterText: "",
+                        contentPadding: EdgeInsets.only(top: 5, bottom: 5),
+                        suffixIcon:  Icon(
+                          Icons.edit,
+                        ),
+                        labelStyle: TextStyle(
+                            color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 16,letterSpacing: 0),
+                        label: Text(
+                          'Lời nhắn (Nếu có)',
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 18),
-            height: size.width * 0.17,
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black26.withOpacity(0.15),
-                      blurRadius: 9,
-                      offset: const Offset(0, 3))
-                ]),
-            child: Center(
-              child: TextFormField(
-                onSaved: (newValue) {
-                  // loiNhan = newValue;
-
-                },
-                keyboardType: TextInputType.text,
-                style: App_Style.openSanGoogle(18).copyWith(
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0,
-                    color: Colors.black.withOpacity(0.7)),
-                textAlignVertical: TextAlignVertical.center,
-                maxLength: 150,
-                decoration: const InputDecoration(
-                  counterText: "",
-                  contentPadding: EdgeInsets.only(top: 5, bottom: 5),
-                  suffixIcon:  Icon(
-                    Icons.edit,
-                  ),
-                  labelStyle: TextStyle(
-                      color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 16,letterSpacing: 0),
-                  label: Text(
-                    'Lời nhắn (Nếu có)',
-                  ),
-                ),
-              ),
             ),
           ),
           const SizedBox(
@@ -257,7 +255,7 @@ class Detail_Transfer_page extends StatelessWidget {
                 Navigator.push(
                     context,
                     PageTransition(
-                        child:  ConfirmTransfer_Page(),
+                        child:  ConfirmTransfer_Page(infoBanking: infoBanking, soTien: soTien, loiNhan: loiNhan,),
                         type: PageTransitionType.bottomToTop));
               }
 
@@ -308,7 +306,7 @@ class Reminder_widget extends StatelessWidget {
           loiNhan,
           overflow: TextOverflow.clip,
           style: App_Style.primaryStyle()
-              .copyWith(fontSize: 12, color: Colors.black.withOpacity((0.25))),
+              .copyWith(fontSize: 14, color: Colors.black.withOpacity((0.25))),
         ))
       ],
     );
@@ -375,7 +373,7 @@ class FormAccount_Widget extends StatelessWidget {
         Text(
           ' Tài khoản chính',
           style: TextStyle(
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Colors.black.withOpacity(0.7)),
         ),
@@ -422,11 +420,9 @@ class FormAccount_Widget extends StatelessWidget {
 // }
 
 class SoDuTaiKhoan_widget extends StatelessWidget {
-  final String sodu;
 
   const SoDuTaiKhoan_widget({
     Key? key,
-    required this.sodu,
   }) : super(key: key);
 
   @override
@@ -439,7 +435,7 @@ class SoDuTaiKhoan_widget extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(4),
-            border: Border.all(color: Colors.tealAccent.shade400, width: 0.5),
+            border: Border.all(color: Colors.lightBlueAccent, width: 1),
           ),
           child: Padding(
             padding: const EdgeInsets.only(
@@ -465,7 +461,7 @@ class SoDuTaiKhoan_widget extends StatelessWidget {
                     ),
                     Icon(
                       Icons.verified,
-                      color: Colors.tealAccent.shade400,
+                      color: Colors.lightBlueAccent,
                       size: 22,
                     )
                   ],
@@ -473,11 +469,11 @@ class SoDuTaiKhoan_widget extends StatelessWidget {
                 Consumer<TransactionProvider>(
                   builder: (context, value, child) {
                     return Text(
-                      value.currentMoneyString,
+                      value.currentMoneyString ?? " ",
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black.withOpacity(0.3)),
+                          color: Colors.black.withOpacity(0.5)),
                     );
                   },
                 )

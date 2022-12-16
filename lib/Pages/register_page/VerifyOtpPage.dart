@@ -1,25 +1,43 @@
 import 'package:banking_application/Pages/register_page/InfoRegisterPage.dart';
+import 'package:banking_application/Provider/InfoAccount.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 class VerifyOtpPage extends StatefulWidget {
-  const VerifyOtpPage({Key? key}) : super(key: key);
-
+  const VerifyOtpPage({Key? key, required this.sdt}) : super(key: key);
+  final String sdt;
   @override
   State<VerifyOtpPage> createState() => _VerifyOtpPageState();
 }
 
 class _VerifyOtpPageState extends State<VerifyOtpPage> {
   String? txtError = "";
+  TextEditingController controller1 = TextEditingController();
+  TextEditingController controller2 = TextEditingController();
+  TextEditingController controller3 = TextEditingController();
+  TextEditingController controller4 = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<InfoAccountProvider>(context, listen: false).sdt = widget.sdt;
+    print('sdt la: ${Provider.of<InfoAccountProvider>(context, listen: false).sdt}');
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller1.dispose();
+    controller2.dispose();
+    controller3.dispose();
+    controller4.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller1 = TextEditingController();
-    TextEditingController controller2 = TextEditingController();
-    TextEditingController controller3 = TextEditingController();
-    TextEditingController controller4 = TextEditingController();
     SizedBox buildSizedBox({required TextEditingController controller, required BuildContext context, required bool first, required bool last}) {
       return SizedBox(
         height: 58,
@@ -95,7 +113,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
             Center(
               child: SizedBox(
                 child: Text(
-                  'Gửi qua tin nhắn\n đến số điện thoại ${convertObscure('0378381905')}',
+                  'Gửi qua tin nhắn\n đến số điện thoại ${convertObscure(widget.sdt)}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 15,
