@@ -57,6 +57,12 @@ class ApiServices {
   Future<ResponseChangePassword> reponseChangePassword({required String credential, required String username, required String password, required String newPass}) async {
     try{
       final ress = await http.post(ApiUrls.api_changePassword,
+        headers: <String, String>{
+          'accept': 'application/json',
+          'access-token': REFRESH_TOKEN,
+          'x-api-key': 'hutech_hackathon@123456',
+          'Content-Type': 'application/json'
+        },
         body: jsonEncode(
             <String,String>{
               "credential": 'OGRkyAeJZvLuTDC/Rq8lm5bsLmAZdZ9W8xPU3i4+PMk8Y14rwJyDV2MS9OV1zRSUbc8WfJDd18AxYRUxAzM8HIleBs3gQp+nGbhgDTlSSZ8mtwo6h9uU2z9j2ItD6FGJjCCR8+xU8yWBK+lD6L/dZuSrdA4khwY6PPg6eU3cv2s=',
@@ -96,7 +102,6 @@ class ApiServices {
     return throw Exception('lỗi lấy public key');
 
   }
-
   Future<ResponseLogin> getAcccNo(
       {required String username, required String password}) async {
     final res = await http.post(ApiUrls.api_login,
@@ -108,10 +113,12 @@ class ApiServices {
         },
         body: jsonEncode({"username": username, "password": password}));
     ResponseLogin r = ResponseLogin.fromJson(jsonDecode(res.body));
-    CheckValue.iD = r.result?.data?.accountNo ?? "";
+    CheckValue.iD ='068704070000489';
     print('số tài khoản: ${CheckValue.iD}');
     print(
-        'login success: ${ResponseLogin.fromJson(jsonDecode(res.body)).result?.response?.responseCode}');
+        'acc: ${r.result?.response?.responseCode}');
+    print(
+        'login success: ${ResponseLogin.fromJson(jsonDecode(res.body)).result?.response?.responseMessage}');
     return ResponseLogin.fromJson(jsonDecode(res.body));
   }
 

@@ -14,31 +14,32 @@ void main() {
       ChangeNotifierProvider(create: (context) => HistoryProvider(),),
       ChangeNotifierProvider(create: (context) => InfoAccountProvider(),)
     ],
-    child: DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        useInheritedMediaQuery: true,
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
-        // runApp(MaterialApp(
-        //   debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            dividerTheme: const DividerThemeData(
-              thickness: 0.5,
-              color: Colors.white24,
-            ),
-            inputDecorationTheme: const InputDecorationTheme(
-              suffixIconColor: App_color.primaryColor,
-            ),
-            colorScheme: ThemeData().colorScheme.copyWith(
-                secondary: App_color.primaryColor
-            ),
-            primaryColor:  const Color(0xFF5B3D86),
-            fontFamily: "OpenSans",
-            appBarTheme:
-            const AppBarTheme(backgroundColor: App_color.primaryColor)),
-        home: const LoginPage(),
-      ),),
+    child:         MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          dividerTheme: const DividerThemeData(
+            thickness: 0.5,
+            color: Colors.white24,
+          ),
+          inputDecorationTheme: const InputDecorationTheme(
+            suffixIconColor: App_color.primaryColor,
+          ),
+          colorScheme: ThemeData().colorScheme.copyWith(
+              secondary: App_color.primaryColor
+          ),
+          primaryColor:  const Color(0xFF5B3D86),
+          fontFamily: "OpenSans",
+          appBarTheme:
+          const AppBarTheme(backgroundColor: App_color.primaryColor)),
+      home: const LoginPage(),
+    ),
+    // child: DevicePreview(
+    //   enabled: !kReleaseMode,
+    //   builder: (context) => MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     useInheritedMediaQuery: true,
+    //     locale: DevicePreview.locale(context),
+    //     builder: DevicePreview.appBuilder,
   ));
+
 }

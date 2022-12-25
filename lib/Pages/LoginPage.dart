@@ -2,6 +2,7 @@ import 'package:banking_application/API/api_services.dart';
 import 'package:banking_application/Component/ButtonWidget.dart';
 import 'package:banking_application/Component/FormPassword.dart';
 import 'package:banking_application/Pages/register_page/RegisterPage.dart';
+import 'package:banking_application/Pages/root_app.dart';
 import 'package:banking_application/anim/LoadingAnimationPage.dart';
 import 'package:banking_application/app_style/app_color/App_color.dart';
 import 'package:banking_application/app_style/app_styles/App_style.dart';
@@ -10,18 +11,41 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:lottie/lottie.dart';
 
+import '../anim/dialog_anim.dart';
 import '../app_style/func/CheckValue.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
   static GlobalKey<FormState> keyLogin = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  late bool isLoading;
+  late TextEditingController controller;
+  late Size size;
+  void setLoading(){
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLoading = false;
     ApiServices.intance.getRefreshToken();
-    final controller = TextEditingController();
-    Size size = MediaQuery.of(context).size;
+    controller = TextEditingController();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -69,7 +93,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: [
                 Form(
-                  key: keyLogin,
+                  key: LoginPage.keyLogin,
                   child: Column(
                     children: [
                       Container(
@@ -131,18 +155,20 @@ class LoginPage extends StatelessWidget {
             height: 20,
           ),
           ButtonWidget(
+            isLoading: isLoading,
             size: size,
             text: 'Đăng nhập',
             onTapp: () async {
-              if (keyLogin.currentState?.validate() == true) {
-                // String password = encryptPassword(FormPassword.password);
+              if (LoginPage.keyLogin.currentState?.validate() == true) {
                 String userName = controller.text;
-                // print('username: $userName');
-                // print('pass: $password');
+                showDialogIn(context);
+                // setLoading();
                 String s = await ApiServices.intance.getRefreshToken();
                 print('Refresh token: $s');
-                ResponseLogin response = await ApiServices.intance
-                    .getAcccNo(username: userName, password: FormPassword.password);
+                ResponseLogin response = await ApiServices.intance.getAcccNo(
+                    username: userName, password: FormPassword.password);
+                Navigator.pop(context);
+                // setLoading();
                 print(
                     'login success: ${response.result?.response?.responseMessage}');
                 switch (response.result?.response?.responseCode) {
@@ -183,11 +209,10 @@ class LoginPage extends StatelessWidget {
                     break;
                   case "00":
                     CheckValue.username = userName;
-
                     Navigator.push(
                         context,
                         PageTransition(
-                            child: const LoadingAnimationPage(),
+                            child: const Root_app(),
                             type: PageTransitionType.leftToRight,
                             opaque: false));
                     break;

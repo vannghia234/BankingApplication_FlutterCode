@@ -16,10 +16,10 @@ class _LoadingAnimationPageState extends State<LoadingAnimationPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(const Duration(milliseconds: 2500), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Root_app(),));
-    });
+    // Timer(const Duration(milliseconds: 2500), () {
+    //   // Navigator.push(
+    //   //     context, MaterialPageRoute(builder: (context) => const Root_app(),));
+    // });
   }
 
   @override

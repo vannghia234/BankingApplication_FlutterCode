@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:banking_application/API/api_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:money_formatter/money_formatter.dart';
@@ -20,7 +21,7 @@ class TransactionProvider extends ChangeNotifier {
       final response = await http.post(ApiUrls.api_getBalance,
           headers: <String, String>{
             'accept': 'application/json',
-            'access-token': accessToken,
+            'access-token': ApiServices.REFRESH_TOKEN,
             'x-api-key': 'hutech_hackathon@123456',
             'Content-Type': 'application/json'
           },
